@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:student_management/view/home_screen/widgets/home_center_widget.dart';
 import 'package:student_management/view/home_screen/widgets/home_top_widget.dart';
+import 'package:student_management/view/studentList/studentlist_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -31,8 +32,8 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                HomeCenterWidget(onTap: (){},image: "assets/home_classroom.png",text: "class room",),
-                HomeCenterWidget(onTap: (){},image: "assets/home_school_bus.jpg",text: "manage bus",),
+                HomeCenterWidget(onTap: (){},image: "assets/home_page/home_classroom.png",text: "class room",),
+                HomeCenterWidget(onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => StudentListScreen(),));},image: "assets/home_page/home_school_bus.jpg",text: "manage bus",),
               ],
             ),
           ),
