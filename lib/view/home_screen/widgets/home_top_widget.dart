@@ -26,7 +26,7 @@ class HomeTopWidget extends StatelessWidget {
               width: 280,
               height: 150,
               child: Image.asset(
-                "assets/home_page.png",
+                "assets/home_page/home_page.png",
                 fit: BoxFit.cover,
               ),
             ),

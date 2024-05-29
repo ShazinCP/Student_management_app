@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:student_management/view/home_screen/home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -18,7 +19,7 @@ class LoginScreen extends StatelessWidget {
               Center(
                 child: Container(
                   child: Image.asset(
-                    "assets/login.png",
+                    "assets/login_page/login.png",
                   ),
                   height: size.height * 0.4,
                   width: size.width / 1.0,
@@ -48,7 +49,9 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
               CupertinoButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen(),));
+                },
                 color: Colors.blue,
                 child: Text(
                   "Login",
