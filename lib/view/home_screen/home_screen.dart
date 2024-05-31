@@ -1,7 +1,9 @@
 
 import 'package:flutter/material.dart';
+import 'package:student_management/helper/readandset_token.dart';
 import 'package:student_management/view/home_screen/widgets/home_center_widget.dart';
 import 'package:student_management/view/home_screen/widgets/home_top_widget.dart';
+import 'package:student_management/view/login_screen/login_screen.dart';
 import 'package:student_management/view/studentList/studentlist_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,6 +19,14 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
+             IconButton(
+            icon: Icon(Icons.logout),
+            onPressed: ()async{
+                  await clearToken();
+            Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => LoginScreen()),
+    );
+            }
+          ),
           HomeTopWidget(name: "Shahal",),
           const Padding(
             padding: EdgeInsets.all(8.0),
@@ -33,7 +43,9 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 HomeCenterWidget(onTap: (){},image: "assets/home_page/home_classroom.png",text: "class room",),
-                HomeCenterWidget(onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => StudentListScreen(),));},image: "assets/home_page/home_school_bus.jpg",text: "manage bus",),
+                HomeCenterWidget(onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => StudentListScreen(),));
+                  },image: "assets/home_page/home_school_bus.jpg",text: "manage bus",),
               ],
             ),
           ),
