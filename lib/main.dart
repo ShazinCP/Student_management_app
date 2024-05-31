@@ -9,6 +9,7 @@ import 'package:student_management/view/splash_screen/splash_screen.dart';
 import 'package:student_management/view/studentList/studentlist_screen.dart';
 import 'package:student_management/view/home_screen/home_screen.dart';
 
+
 void main() {
   runApp(const MyApp());
 }

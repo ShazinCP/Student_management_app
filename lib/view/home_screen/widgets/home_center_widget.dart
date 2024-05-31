@@ -1,47 +1,63 @@
-
 import 'package:flutter/material.dart';
+import 'package:student_management/helper/colors.dart';
 
 class HomeCenterWidget extends StatelessWidget {
- final String? image;
- final String? text;
- final VoidCallback? onTap;
-   HomeCenterWidget({
-    super.key, this.image, this.text, this.onTap,
+  final String? image;
+  final String? text;
+  final VoidCallback? onTap;
+  HomeCenterWidget({
+    super.key,
+    this.image,
+    this.text,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap:onTap, 
+      onTap: onTap,
       child: Container(
-        width: 150,
-        height: 100,
-     
+        width: 170,
+        height: 120,
         decoration: BoxDecoration(
-             color: Colors.blue,
-          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30),topRight: Radius.circular(30))),
-        child: Column(
-          children: [
-            Padding(
-      padding: const EdgeInsets.all(5.0),
-      child: Container(
-        width: 140,
-        height: 60,
-        decoration: BoxDecoration(
-           image: DecorationImage(
+          color: cPrimaryColor,
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(30), topRight: Radius.circular(30)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.5), // Shadow color
+              spreadRadius: 5, // Spread radius
+              blurRadius: 7, // Blur radius
+              offset: Offset(0, 3), // Offset in x and y directions
+            ),
+          ],
+        ),
+        child: Padding(
+          padding: EdgeInsets.only(top: 5),
+          child: Column(
+            children: [
+              Container(
+                width: 160,
+                height: 80,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
                     image: AssetImage(image!),
                     fit: BoxFit.cover,
                   ),
-          borderRadius: BorderRadius.only(topRight: Radius.circular(30),bottomLeft: Radius.circular(30)),),
-      ),
-            ),
-            
-            Text(text!,style:  TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w500,
-              fontSize: 15),)
-            
-          ],
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(30),
+                      bottomLeft: Radius.circular(30)),
+                ),
+              ),
+              Text(
+                text!,
+                style: TextStyle(
+                    color: cWhiteColor,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 15),
+              )
+            ],
+          ),
         ),
       ),
     );

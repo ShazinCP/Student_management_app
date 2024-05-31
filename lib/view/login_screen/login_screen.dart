@@ -1,10 +1,16 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:student_management/controller/login_provider.dart';
 import 'package:student_management/helper/readandset_token.dart';
 import 'package:student_management/services/login_services.dart';
+
+import 'package:student_management/helper/colors.dart';
+
 import 'package:student_management/view/home_screen/home_screen.dart';
+import 'package:student_management/view/login_screen/widgets/textform_widget.dart';
 
 class LoginScreen extends StatelessWidget {
    LoginScreen({super.key});
@@ -20,7 +26,7 @@ class LoginScreen extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color.fromARGB(255, 214, 237, 255),
+        backgroundColor: cBackgroundColor,
         body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
           child: Form(
@@ -142,3 +148,4 @@ class loginfield extends StatelessWidget {
     );
   }
 }
+

@@ -1,6 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:student_management/helper/readandset_token.dart';
+
+
+import 'package:student_management/helper/colors.dart';
+
 import 'package:student_management/view/home_screen/widgets/home_center_widget.dart';
 import 'package:student_management/view/home_screen/widgets/home_top_widget.dart';
 import 'package:student_management/view/login_screen/login_screen.dart';
@@ -11,13 +14,13 @@ class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
+
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-     final Size size = MediaQuery.of(context).size;
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
              IconButton(
             icon: Icon(Icons.logout),
@@ -36,7 +39,9 @@ class _HomeScreenState extends State<HomeScreen> {
               thickness: 3,
             ),
           ),
-        
+          SizedBox(
+            height: 50,
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
@@ -47,23 +52,58 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => StudentListScreen(),));
                   },image: "assets/home_page/home_school_bus.jpg",text: "manage bus",),
               ],
+
+            child: Divider(
+              height: 5,
+              color: Colors.grey.shade700,
+              thickness: 3,
+
             ),
           ),
-            SizedBox(height: 80,),
+          SizedBox(
+            height: 40,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              HomeCenterWidget(
+                onTap: () {},
+                image: "assets/home_page/home_classroom.png",
+                text: "class room",
+              ),
+              HomeCenterWidget(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => StudentListScreen(),
+                      ));
+                },
+                image: "assets/home_page/home_school_bus.jpg",
+                text: "manage bus",
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 50,
+          ),
           Container(
-            height: size.height/12,
-            width: size.width/1.5,
-            decoration: const BoxDecoration(
-                 color: Colors.blue,
-              borderRadius: BorderRadius.all( Radius.circular(20))
-            ),
+            height: size.height / 7,
+            width: size.width / 1.1,
+            decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.5), // Shadow color
+                    spreadRadius: 5, // Spread radius
+                    blurRadius: 7, // Blur radius
+                    offset: Offset(0, 3), // Offset in x and y directions
+                  ),
+                ],
+                color: cPrimaryColor,
+                borderRadius: BorderRadius.all(Radius.circular(20))),
           )
         ],
       ),
     );
   }
 }
-
-
-
-
