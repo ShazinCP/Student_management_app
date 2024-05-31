@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 
 class loginfield extends StatelessWidget {
-  final String text;
-  const loginfield({super.key, required this.text});
+  final TextEditingController controller;
+  final String hintText;
+  final String? Function(String?)? validator;
+  const loginfield(
+      {super.key,
+      required this.controller,
+      required this.hintText,
+      this.validator});
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +25,8 @@ class loginfield extends StatelessWidget {
           ],
         ),
         child: TextFormField(
+          controller: controller,
+          validator: validator,
           decoration: InputDecoration(
               focusColor: Colors.black,
               enabledBorder: const OutlineInputBorder(
@@ -33,7 +41,7 @@ class loginfield extends StatelessWidget {
                   Radius.circular(10),
                 ), // Set the border radius here to be the same as enabledBorder
               ),
-              hintText: text,
+              hintText: hintText,
               hintStyle: TextStyle(color: Colors.white),
               filled: true, // Enable the fill color
               fillColor: Color.fromARGB(

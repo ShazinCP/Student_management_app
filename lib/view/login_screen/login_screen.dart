@@ -4,24 +4,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:student_management/controller/login_provider.dart';
-import 'package:student_management/helper/readandset_token.dart';
-import 'package:student_management/services/login_services.dart';
-
 import 'package:student_management/helper/colors.dart';
-
+import 'package:student_management/helper/readandset_token.dart';
 import 'package:student_management/view/home_screen/home_screen.dart';
 import 'package:student_management/view/login_screen/widgets/textform_widget.dart';
 
 class LoginScreen extends StatelessWidget {
-   LoginScreen({super.key});
+  LoginScreen({super.key});
 
- 
   final formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    
-    final loginProvider=Provider.of<LoginProvider>(context);
+    final loginProvider = Provider.of<LoginProvider>(context);
     final size = MediaQuery.of(context).size;
 
     return SafeArea(
@@ -29,87 +24,115 @@ class LoginScreen extends StatelessWidget {
         backgroundColor: cBackgroundColor,
         body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Form(
-            key: formkey,
-            child: SingleChildScrollView(
+          child: SingleChildScrollView(
+            child: Form(
+              key: formkey,
               child: Column(
                 children: [
                   Center(
                     child: Container(
-                      child: Image.asset(
-                        "assets/login_page/login.png",
-                      ),
                       height: size.height * 0.4,
-                      width: size.width / 1.0,
+                      width: size.width,
                       decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 134, 182, 246),
-                        borderRadius: BorderRadius.only(
+                        color: cPrimaryColor,
+                        borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(30),
                           bottomRight: Radius.circular(30),
                         ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 2,
+                            blurRadius: 5,
+                            offset: const Offset(
+                                0, 3), // Changes the position of the shadow
+                          ),
+                        ],
+                      ),
+                      child: Image.asset(
+                        "assets/login_page/login.png",
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 14, vertical: 35),
+                    padding: EdgeInsets.symmetric(horizontal: 14, vertical: 35),
                     child: Column(
                       children: [
                         loginfield(
                           controller: loginProvider.usernameController,
-                        hintText: "User Name....",
-                        validator:(value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter username ';
-                      } else {
-                        return null;
-                      }
-                    } ,),
+                          hintText: "User Name....",
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter username ';
+                            } else {
+                              return null;
+                            }
+                          },
+                        ),
                         SizedBox(
-                          height: 10,
+                          height: 20,
                         ),
                         loginfield(
-                          controller: loginProvider.passwordController,
-                        hintText: "Password...",
-                            validator:(value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter password';
-                      } else {
-                        return null;
-                      }
-                    } 
-                        ),
+                            controller: loginProvider.passwordController,
+                            hintText: "Password...",
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter password';
+                              } else {
+                                return null;
+                              }
+                            }),
                       ],
                     ),
                   ),
-                  CupertinoButton(
-                    onPressed: () async {
-                      if (formkey.currentState!.validate()) {
-                    await loginProvider.loginAndGetToken();
-                    final token = await readToken();
-                    if (token != null && token.isNotEmpty) {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()),
-                      );
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Failed to login. Please try again.'),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.5),
+                          spreadRadius: 2,
+                          blurRadius: 5,
+                          offset: const Offset(
+                              0, 3), // Changes the position of the shadow
                         ),
-                      );
-                    }
-                      }else{
-                         print('empty value');
-                      }
-                  },
-                    color: Colors.blue,
-                    child: Text(
-                      "Login",
-                      style: TextStyle(color: Colors.white),
+                      ],
+                      borderRadius: BorderRadius.circular(
+                          8), // Match the button's shape if needed
+                    ),
+                    child: CupertinoButton(
+                      onPressed: () async {
+                        if (formkey.currentState!.validate()) {
+                          await loginProvider.loginAndGetToken();
+                          final token = await readToken();
+                          if (token != null && token.isNotEmpty) {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomeScreen()),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content:
+                                    Text('Failed to login. Please try again.'),
+                              ),
+                            );
+                          }
+                        } else {
+                          print('empty value');
+                        }
+                      },
+                      color: cPrimaryColor,
+                      child: const Text(
+                        "Login",
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   )
                 ],
@@ -121,31 +144,3 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
-
-class loginfield extends StatelessWidget {
-  final TextEditingController controller;
-  final String hintText;
-  final String? Function(String?)? validator;
-   loginfield({
-    super.key,
-    required this.controller,
-    required this.hintText, this.validator
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      validator: validator,
-      controller:controller ,
-      decoration: InputDecoration(
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.white, width: 3),
-          borderRadius: BorderRadius.all(
-              Radius.circular(15)), // Set the border radius here
-        ),
-        hintText: hintText,
-      ),
-    );
-  }
-}
-

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:student_management/helper/readandset_token.dart';
-
 
 import 'package:student_management/helper/colors.dart';
-
+import 'package:student_management/helper/readandset_token.dart';
 import 'package:student_management/view/home_screen/widgets/home_center_widget.dart';
 import 'package:student_management/view/home_screen/widgets/home_top_widget.dart';
 import 'package:student_management/view/login_screen/login_screen.dart';
@@ -22,21 +20,31 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: Column(
         children: [
-             IconButton(
-            icon: Icon(Icons.logout),
-            onPressed: ()async{
-                  await clearToken();
-            Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => LoginScreen()),
-    );
-            }
-          ),
-          HomeTopWidget(name: "Shahal",),
-          const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Divider(
-              height: 5,
-              color: Colors.black,
-              thickness: 3,
+          IconButton(
+              icon: Icon(Icons.logout),
+              onPressed: () async {
+                await clearToken();
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                );
+              }),
+          Container(
+            width: double.infinity,
+            height: 350,
+            decoration: BoxDecoration(
+              color: cBackgroundColor,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.5), // Shadow color
+                  spreadRadius: 7, // Spread radius
+                  blurRadius: 7, // Blur radius
+                  offset: Offset(0, 5), // Offset in x and y directions
+                ),
+              ],
+            ),
+            child: HomeTopWidget(
+              name: "Shahal",
             ),
           ),
           SizedBox(
@@ -44,20 +52,10 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                HomeCenterWidget(onTap: (){},image: "assets/home_page/home_classroom.png",text: "class room",),
-                HomeCenterWidget(onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => StudentListScreen(),));
-                  },image: "assets/home_page/home_school_bus.jpg",text: "manage bus",),
-              ],
-
             child: Divider(
               height: 5,
               color: Colors.grey.shade700,
               thickness: 3,
-
             ),
           ),
           SizedBox(
