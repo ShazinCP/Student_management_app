@@ -38,7 +38,7 @@ class PaymentCounts extends StatelessWidget {
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 19,
-                      color: cWhiteColor,
+                      color: cBlackColor,
                     ),
                   ),
                 ),
@@ -50,7 +50,7 @@ class PaymentCounts extends StatelessWidget {
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 19,
-                      color: cWhiteColor,
+                      color: cGreenColor,
                     ),
                   ),
                 ),
@@ -77,7 +77,7 @@ class PaymentCounts extends StatelessWidget {
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 16,
-                              color: cWhiteARGBColor,
+                              color: cBlackColor,
                             ),
                           ),
                         ],
@@ -99,7 +99,7 @@ class PaymentCounts extends StatelessWidget {
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 16,
-                              color: cWhiteARGBColor,
+                              color: cBlackColor,
                             ),
                           ),
                         ],

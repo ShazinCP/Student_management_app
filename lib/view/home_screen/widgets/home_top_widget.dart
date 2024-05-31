@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:student_management/helper/colors.dart';
 
 class HomeTopWidget extends StatelessWidget {
- final String? name;
-   HomeTopWidget({
+  final String? name;
+  HomeTopWidget({
     super.key,
     this.name,
   });
@@ -12,40 +15,48 @@ class HomeTopWidget extends StatelessWidget {
     return Center(
       child: Stack(
         children: [
-           Container(
-              width: 350,
-              height: 200,
-              decoration: const BoxDecoration(
-                  color: Colors.blue,
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(50),bottomRight: Radius.circular(50) )
-              ),
-            ),
-          Padding(
-            padding: const EdgeInsets.only(left: 80, top: 40),
+          Container(
+            width: 370,
+            height: 260,
+            decoration: BoxDecoration(
+                color: cPrimaryColor,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(50),
+                    bottomRight: Radius.circular(50))),
+          ),
+          Positioned(
+            left: 85,
+            top: 50,
             child: SizedBox(
-              width: 280,
-              height: 150,
+              width: 300,
+              height: 170,
               child: Image.asset(
                 "assets/home_page/home_page.png",
                 fit: BoxFit.cover,
               ),
             ),
           ),
-           Padding(
-            padding: const EdgeInsets.all(35.0),
-            child: Text(name??"",
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 15)),
-          ),
-          const Padding(
-            padding: EdgeInsets.all(20),
-            child: Text("Hi",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 15)),
+          Positioned(
+            left: 20,
+            top: 20,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Hi.....",
+                    style: TextStyle(
+                        color: cWhiteColor,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 20)),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20),
+                  child: Text(name ?? "",
+                      style: const TextStyle(
+                          color: cWhiteColor,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 20)),
+                ),
+              ],
+            ),
           ),
         ],
       ),

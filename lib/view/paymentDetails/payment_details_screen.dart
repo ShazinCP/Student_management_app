@@ -13,19 +13,27 @@ class PaymentDetailsScreen extends StatelessWidget {
     final double screenWidth = size.width;
     final double screenHeight = size.height;
     return Scaffold(
+      backgroundColor: cBackgroundColor,
       appBar: AppBar(
-        leading: const CircleAvatar(
-          radius: 10,
-          backgroundColor: cPrimaryColor,
-          child: Text(
-            "12",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: cWhiteColor,
+        backgroundColor: cBackgroundColor,
+        leading: Padding(
+          padding: const EdgeInsets.all(5),
+          child: CircleAvatar(
+            radius: 10,
+            backgroundColor: cPrimaryColor,
+            child: Text(
+              "12",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.grey.shade700,
+              ),
             ),
           ),
         ),
-        title: const Text("Mufees Rahman"),
+        title: const Text(
+          "Mufees Rahman",
+          style: TextStyle(color: cWhiteColor),
+        ),
       ),
       body: SafeArea(
         child: Column(
@@ -45,7 +53,7 @@ class PaymentDetailsScreen extends StatelessWidget {
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 18,
-                      color: cBlackARGBColor2,
+                      color: cWhiteColor,
                     ),
                   ),
                 ),
