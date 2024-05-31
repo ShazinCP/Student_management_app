@@ -10,6 +10,7 @@ class StudentListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: cBackgroundColor,
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -61,9 +62,9 @@ class StudentListScreen extends StatelessWidget {
                     Text(
                       'STUDENT LIST',
                       style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold,
-                      ),
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                          color: cWhiteColor),
                     ),
                   ],
                 ),
@@ -82,7 +83,8 @@ class StudentListScreen extends StatelessWidget {
                     return Card(
                       color: cPrimaryColor,
                       child: GestureDetector(
-                        onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                        onTap: () =>
+                            Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => const PaymentDetailsScreen(),
                         )),
                         child: const ListTile(

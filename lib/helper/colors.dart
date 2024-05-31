@@ -18,8 +18,8 @@ const cWhiteARGBColor5 = Color.fromARGB(255, 248, 246, 246);
 const cAmberColor = Colors.amber;
 const cYellowARGBColor = Color.fromARGB(255, 208, 160, 14);
 
-const  cShadowColor = Color.fromARGB(255, 21, 83, 75);
-const  cShadowColor2 = Color.fromARGB(255, 47, 125, 121);
+const cShadowColor = Color.fromARGB(255, 21, 83, 75);
+const cShadowColor2 = Color.fromARGB(255, 47, 125, 121);
 
 const cGreyColor = Colors.grey;
 final cGreyColorWithShade700 = Colors.grey.shade700;
@@ -34,5 +34,7 @@ const cGreenARGBColor2 = Color.fromARGB(255, 63, 173, 67);
 
 const cBlueColor = Color(0xFF2E49FB);
 
-const cPrimaryColor = Color(0xFF1D796C);
+const cPrimaryColor = Color.fromARGB(255, 255, 202, 57);
+
 const cSecondaryColor = Color(0xFFFFFEDF);
+const cBackgroundColor = Color.fromARGB(255, 23, 46, 90);
