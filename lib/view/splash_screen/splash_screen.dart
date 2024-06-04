@@ -1,9 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:student_management/view/home_screen/home_screen.dart';
 import 'package:student_management/view/login_screen/login_screen.dart';
-
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({
@@ -24,11 +22,12 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFFDF4DB),
       body: Container(
-          width: double.infinity,
+        width: double.infinity,
         height: double.infinity,
         child: Image.asset(
-          'assets/login_page/login.png',
+          'assets/splash_page/splash.gif',
         ),
       ),
     );
@@ -37,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> gotologin() async {
     await Future.delayed(const Duration(seconds: 4));
     Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (ctx) =>  LoginScreen()));
+        .pushReplacement(MaterialPageRoute(builder: (ctx) => LoginScreen()));
   }
 
   Future<void> checkUserLoggedIn() async {
@@ -46,8 +45,8 @@ class _SplashScreenState extends State<SplashScreen> {
     if (userLoggedIn == null || userLoggedIn == false) {
       gotologin();
     } else {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (ctx) => HomeScreen()));
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (ctx) => HomeScreen()));
     }
   }
 }
