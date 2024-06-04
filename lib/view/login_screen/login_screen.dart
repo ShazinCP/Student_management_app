@@ -1,5 +1,3 @@
-// ignore_for_file: camel_case_types
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -58,7 +56,8 @@ class LoginScreen extends StatelessWidget {
                     height: 20,
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 14, vertical: 35),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 14, vertical: 35),
                     child: Column(
                       children: [
                         loginfield(
@@ -72,7 +71,7 @@ class LoginScreen extends StatelessWidget {
                             }
                           },
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         loginfield(
@@ -114,11 +113,11 @@ class LoginScreen extends StatelessWidget {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => HomeScreen()),
+                                  builder: (context) => const HomeScreen()),
                             );
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
+                              const SnackBar(
                                 content:
                                     Text('Failed to login. Please try again.'),
                               ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:student_management/helper/colors.dart';
 import 'package:student_management/view/paymentDetails/payment_details_screen.dart';
 import 'package:student_management/view/studentList/widgets/searchfield.dart';
+import 'package:student_management/view/students_info/students_info.dart';
 
 class StudentListScreen extends StatelessWidget {
   const StudentListScreen({super.key});
@@ -85,7 +86,7 @@ class StudentListScreen extends StatelessWidget {
                       child: GestureDetector(
                         onTap: () =>
                             Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const PaymentDetailsScreen(),
+                          builder: (context) => const StudentsInfoScreen(),
                         )),
                         child: const ListTile(
                           leading: CircleAvatar(
