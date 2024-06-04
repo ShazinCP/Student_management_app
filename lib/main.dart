@@ -6,7 +6,7 @@ import 'package:student_management/controller/paymentdetails_provider.dart';
 import 'package:student_management/controller/studentlist_provider.dart';
 import 'package:student_management/view/login_screen/login_screen.dart';
 import 'package:student_management/view/splash_screen/splash_screen.dart';
-import 'package:student_management/view/studentList/studentlist_screen.dart';
+import 'package:student_management/view/bus_studentList/bus_studentlist_screen.dart';
 import 'package:student_management/view/home_screen/home_screen.dart';
 
 
