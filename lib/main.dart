@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       ChangeNotifierProvider(create: (context) => PaymentDetailsProvider()),
       ChangeNotifierProvider(create: (context) => LoginProvider()),
     ],
-      child:  MaterialApp(
+      child:  const MaterialApp(
         title: 'Student Management',
         debugShowCheckedModeBanner: false,
         home:SplashScreen(),
