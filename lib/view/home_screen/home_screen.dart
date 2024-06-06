@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:student_management/helper/colors.dart';
 import 'package:student_management/helper/readandset_token.dart';
+import 'package:student_management/view/class_studentlist/class_studentlist_screen.dart';
 import 'package:student_management/view/home_screen/widgets/home_center_widget.dart';
 import 'package:student_management/view/home_screen/widgets/home_top_widget.dart';
 import 'package:student_management/view/login_screen/login_screen.dart';
-import 'package:student_management/view/studentList/studentlist_screen.dart';
+import 'package:student_management/view/bus_studentList/bus_studentlist_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -99,7 +100,13 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 HomeCenterWidget(
-                  onTap: () {},
+                  onTap: () {
+                         Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ClassStudentsScreen(),
+                        ));
+                  },
                   image: "assets/home_page/home_classroom.png",
                   text: "class room",
                 ),
@@ -108,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const StudentListScreen(),
+                          builder: (context) => const BusStudentsScreen(),
                         ));
                   },
                   image: "assets/home_page/home_school_bus.jpg",
