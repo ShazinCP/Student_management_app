@@ -1,11 +1,8 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:student_management/controller/bus_studentsprovider.dart';
 import 'package:student_management/helper/colors.dart';
-import 'package:student_management/view/paymentDetails/payment_details_screen.dart';
 import 'package:student_management/view/students_info/students_info.dart';
 import 'package:student_management/widgets/lists_shimmer_effect.dart';
 
@@ -14,7 +11,7 @@ class BusStudentsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final busstudentsPro=Provider.of<BusStudentsProvider>(context);
+    final busstudentsPro = Provider.of<BusStudentsProvider>(context);
     return SafeArea(
       child: Scaffold(
         backgroundColor: cBackgroundColor,
@@ -42,47 +39,49 @@ class BusStudentsScreen extends StatelessWidget {
                           topLeft: Radius.circular(45),
                         ),
                       ),
-                      child:Column(
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 25),
                             child: TextField(
-                                        controller: busstudentsPro.searchController,
-                                        style: const TextStyle(color: cBlackColor),
-                                        cursorColor: cPrimaryColor,
-                                        decoration: InputDecoration(
-                                            enabledBorder: const OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(Radius.circular(14)),
-                                              borderSide: BorderSide(
-                                                color: cBlackColor,
-                                              ),
-                                            ),
-                                            focusedBorder: const OutlineInputBorder(
-                                                borderRadius: BorderRadius.all(Radius.circular(14)),
-                                                borderSide: BorderSide(
-                                                  color: cBlackColor,
-                                                )),
-                                            fillColor: cWhiteColor,
-                                            filled: true,
-                                            hintText: 'Search Student...',
-                                            hintStyle: TextStyle(
-                                              color: cGreyColorWithShade700,
-                                              fontSize: 14,
-                                            ),
-                                            prefixIcon: Icon(
-                                              CupertinoIcons.search,
-                                              size: 22,
-                                              color: cGreyColorWithShade700,
-                                            ),
-                                            suffixIcon: Icon(
-                                              CupertinoIcons.clear,
-                                              size: 19,
-                                              color: cGreyColorWithShade700,
-                                            )),
-                                      ),
+                              controller: busstudentsPro.searchController,
+                              style: const TextStyle(color: cBlackColor),
+                              cursorColor: cPrimaryColor,
+                              decoration: InputDecoration(
+                                  enabledBorder: const OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(14)),
+                                    borderSide: BorderSide(
+                                      color: cBlackColor,
+                                    ),
+                                  ),
+                                  focusedBorder: const OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(14)),
+                                      borderSide: BorderSide(
+                                        color: cBlackColor,
+                                      )),
+                                  fillColor: cWhiteColor,
+                                  filled: true,
+                                  hintText: 'Search Student...',
+                                  hintStyle: TextStyle(
+                                    color: cGreyColorWithShade700,
+                                    fontSize: 14,
+                                  ),
+                                  prefixIcon: Icon(
+                                    CupertinoIcons.search,
+                                    size: 22,
+                                    color: cGreyColorWithShade700,
+                                  ),
+                                  suffixIcon: Icon(
+                                    CupertinoIcons.clear,
+                                    size: 19,
+                                    color: cGreyColorWithShade700,
+                                  )),
+                            ),
                           ),
-                          SizedBox(height: 15),
+                          const SizedBox(height: 15),
                         ],
                       ),
                     ),
@@ -102,11 +101,12 @@ class BusStudentsScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      'BUS STUDENT LIST',
+                      'STUDENT LIST',
                       style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
-                          color: cWhiteColor),
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                        color: cWhiteColor,
+                      ),
                     ),
                   ],
                 ),
@@ -122,37 +122,43 @@ class BusStudentsScreen extends StatelessWidget {
                     if (provider.isLoading) {
                       return buildListShimmerEffect();
                     } else if (provider.errorMessage != null) {
-                      return Center(child: Text('Error: ${provider.errorMessage}'));
+                      return Center(
+                          child: Text('Error: ${provider.errorMessage}'));
                     } else if (provider.students == null) {
-                      return Center(child: Text('No data available'));
+                      return const Center(child: Text('No data available'));
                     } else {
                       final busStudentsList = provider.students!;
                       return ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: busStudentsList.length,
                         itemBuilder: (context, index) {
                           final student = busStudentsList[index];
-                         
+
                           return Card(
                             color: cPrimaryColor,
                             child: GestureDetector(
-                              onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const StudentsInfoScreen(),
+                              onTap: () =>
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => StudentsInfoScreen(
+                                  name: student.user.name,
+                                  gender: student.user.gender,
+                                  id: student.user.id,
+                                ),
                               )),
                               child: ListTile(
                                 leading: CircleAvatar(
                                   backgroundColor: cSecondaryColor,
                                   child: Text(
                                     student.user.gender,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ),
                                 title: Text(
                                   student.user.name,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: cWhiteColor,
                                   ),
                                 ),
@@ -171,8 +177,4 @@ class BusStudentsScreen extends StatelessWidget {
       ),
     );
   }
-  
 }
-
-
-

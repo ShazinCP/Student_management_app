@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:student_management/controller/class_studentsprovider.dart';
 import 'package:student_management/helper/colors.dart';
-import 'package:student_management/view/paymentDetails/payment_details_screen.dart';
 import 'package:student_management/widgets/lists_shimmer_effect.dart';
 
 class ClassStudentsScreen extends StatelessWidget {
@@ -80,7 +78,7 @@ class ClassStudentsScreen extends StatelessWidget {
                                             )),
                                       ),
                           ),
-                          SizedBox(height: 15),
+                          const SizedBox(height: 15),
                         ],
                       ),
                     ),
@@ -122,11 +120,11 @@ class ClassStudentsScreen extends StatelessWidget {
                     } else if (provider.errorMessage != null) {
                       return Center(child: Text('Error: ${provider.errorMessage}'));
                     } else if (provider.students == null) {
-                      return Center(child: Text('No data available'));
+                      return const Center(child: Text('No data available'));
                     } else {
                       final classStudentsList = provider.students!;
                       return ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: classStudentsList.length,
                         itemBuilder: (context, index) {
@@ -139,14 +137,14 @@ class ClassStudentsScreen extends StatelessWidget {
                                 backgroundColor: cSecondaryColor,
                                 child: Text(
                                   student.user.gender,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
                               title: Text(
                                 student.user.name,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: cWhiteColor,
                                 ),
                               ),
