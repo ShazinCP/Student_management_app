@@ -1,13 +1,3 @@
-// To parse this JSON data, do
-//
-//     final busStudentsListModel = busStudentsListModelFromJson(jsonString);
-
-import 'dart:convert';
-
-List<BusStudentsListModel> busStudentsListModelFromJson(String str) => List<BusStudentsListModel>.from(json.decode(str).map((x) => BusStudentsListModel.fromJson(x)));
-
-String busStudentsListModelToJson(List<BusStudentsListModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
-
 class BusStudentsListModel {
     String admissionNo;
     User user;
