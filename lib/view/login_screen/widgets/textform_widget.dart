@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class loginfield extends StatelessWidget {
+class Loginfield extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final String? Function(String?)? validator;
-  const loginfield(
+  const Loginfield(
       {super.key,
       required this.controller,
       required this.hintText,
@@ -42,9 +42,9 @@ class loginfield extends StatelessWidget {
                 ), // Set the border radius here to be the same as enabledBorder
               ),
               hintText: hintText,
-              hintStyle: TextStyle(color: Colors.white),
+              hintStyle: const TextStyle(color: Colors.white),
               filled: true, // Enable the fill color
-              fillColor: Color.fromARGB(
+              fillColor: const Color.fromARGB(
                   255, 135, 149, 177) // Set the fill color to white
               ),
         ));

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:student_management/constants/sizedboxes.dart';
 import 'package:student_management/helper/colors.dart';
 
 class PaymentCounts extends StatelessWidget {
@@ -42,7 +43,7 @@ class PaymentCounts extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 5),
+                cHeight5,
                 Padding(
                   padding: EdgeInsets.only(left: 15),
                   child: Text(
@@ -54,7 +55,7 @@ class PaymentCounts extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 25),
+                cHeight25,
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
                   child: Row(
@@ -71,7 +72,7 @@ class PaymentCounts extends StatelessWidget {
                               size: 19,
                             ),
                           ),
-                          SizedBox(width: 7),
+                          cWidth7,
                           Text(
                             'Paid',
                             style: TextStyle(
@@ -93,7 +94,7 @@ class PaymentCounts extends StatelessWidget {
                               size: 19,
                             ),
                           ),
-                          SizedBox(width: 7),
+                          cWidth7,
                           Text(
                             'Balance',
                             style: TextStyle(
@@ -107,7 +108,7 @@ class PaymentCounts extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(height: 6),
+                cHeight6,
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 30),
                   child: Row(

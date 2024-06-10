@@ -5,7 +5,7 @@ class HomeCenterWidget extends StatelessWidget {
   final String? image;
   final String? text;
   final VoidCallback? onTap;
-  HomeCenterWidget({
+  const HomeCenterWidget({
     super.key,
     this.image,
     this.text,
@@ -21,19 +21,19 @@ class HomeCenterWidget extends StatelessWidget {
         height: 120,
         decoration: BoxDecoration(
           color: cPrimaryColor,
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
               bottomLeft: Radius.circular(30), topRight: Radius.circular(30)),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.5), // Shadow color
               spreadRadius: 5, // Spread radius
               blurRadius: 7, // Blur radius
-              offset: Offset(0, 3), // Offset in x and y directions
+              offset: const Offset(0, 3), // Offset in x and y directions
             ),
           ],
         ),
         child: Padding(
-          padding: EdgeInsets.only(top: 5),
+          padding: const EdgeInsets.only(top: 5),
           child: Column(
             children: [
               Container(
@@ -44,14 +44,14 @@ class HomeCenterWidget extends StatelessWidget {
                     image: AssetImage(image!),
                     fit: BoxFit.cover,
                   ),
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                       topRight: Radius.circular(30),
                       bottomLeft: Radius.circular(30)),
                 ),
               ),
               Text(
                 text!,
-                style: TextStyle(
+                style: const TextStyle(
                     color: cWhiteColor,
                     fontWeight: FontWeight.w500,
                     fontSize: 15),

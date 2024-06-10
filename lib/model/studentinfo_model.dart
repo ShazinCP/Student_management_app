@@ -3,14 +3,12 @@ class StudentInfoModel {
   final Bus bus;
   final Route route;
   final BusPoint busPoint;
-  final int annualFees;
 
   StudentInfoModel({
     required this.student,
     required this.bus,
     required this.route,
     required this.busPoint,
-    required this.annualFees,
   });
 
   factory StudentInfoModel.fromJson(Map<String, dynamic> json) {
@@ -19,7 +17,6 @@ class StudentInfoModel {
       bus: Bus.fromJson(json['bus']),
       route: Route.fromJson(json['route']),
       busPoint: BusPoint.fromJson(json['bus_point']),
-      annualFees: json['annual_fees'],
     );
   }
 
@@ -29,7 +26,6 @@ class StudentInfoModel {
       'bus': bus.toJson(),
       'route': route.toJson(),
       'bus_point': busPoint.toJson(),
-      'annual_fees': annualFees,
     };
   }
 }
@@ -120,16 +116,17 @@ class Route {
   });
 
   factory Route.fromJson(Map<String, dynamic> json) {
-    var list = json['bus_points'] as List;
-    List<BusPoint> busPointList =
-        list.map((i) => BusPoint.fromJson(i)).toList();
+    var busPointsFromJson = json['bus_points'] as List;
+    List<BusPoint> busPointsList =
+        busPointsFromJson.map((i) => BusPoint.fromJson(i)).toList();
+
     return Route(
       id: json['id'],
       bus: json['bus'],
       routeNo: json['route_no'],
       fromLocation: json['from_location'],
       toLocation: json['to_location'],
-      busPoints: busPointList,
+      busPoints: busPointsList,
     );
   }
 
@@ -140,7 +137,7 @@ class Route {
       'route_no': routeNo,
       'from_location': fromLocation,
       'to_location': toLocation,
-      'bus_points': busPoints.map((e) => e.toJson()).toList(),
+      'bus_points': busPoints.map((busPoint) => busPoint.toJson()).toList(),
     };
   }
 }
