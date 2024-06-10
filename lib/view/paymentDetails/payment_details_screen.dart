@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:student_management/constants/sizedboxes.dart';
 import 'package:student_management/helper/colors.dart';
 import 'package:student_management/view/paymentDetails/widgets/alertbox.dart';
 import 'package:student_management/view/paymentDetails/widgets/transaction_count.dart';
@@ -38,7 +39,7 @@ class PaymentDetailsScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            const SizedBox(height: 10),
+            cHeight10,
             SizedBox(
               height: screenHeight * .30,
               width: screenWidth,

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:student_management/constants/sizedboxes.dart';
 import 'package:student_management/controller/class_studentsprovider.dart';
 import 'package:student_management/helper/colors.dart';
 import 'package:student_management/widgets/lists_shimmer_effect.dart';
@@ -17,7 +18,7 @@ class ClassStudentsScreen extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              const SizedBox(height: 10),
+              cHeight10,
               Stack(
                 children: [
                   Center(
@@ -78,14 +79,14 @@ class ClassStudentsScreen extends StatelessWidget {
                                             )),
                                       ),
                           ),
-                          const SizedBox(height: 15),
+                          cHeight15,
                         ],
                       ),
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 10),
+              cHeight10,
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                 child: Divider(
@@ -98,11 +99,11 @@ class ClassStudentsScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      'STUDENT LIST',
+                      'Student List',
                       style: TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.bold,
-                          color: cWhiteColor),
+                          color: cBlackColor),
                     ),
                   ],
                 ),

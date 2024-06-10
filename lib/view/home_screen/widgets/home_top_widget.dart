@@ -5,7 +5,7 @@ import 'package:student_management/helper/colors.dart';
 
 class HomeTopWidget extends StatelessWidget {
   final String? name;
-  HomeTopWidget({
+  const HomeTopWidget({
     super.key,
     this.name,
   });
@@ -18,7 +18,7 @@ class HomeTopWidget extends StatelessWidget {
           Container(
             width: 370,
             height: 260,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 color: cPrimaryColor,
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(50),
@@ -42,7 +42,7 @@ class HomeTopWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Hi.....",
+                const Text("Hi.....",
                     style: TextStyle(
                         color: cWhiteColor,
                         fontWeight: FontWeight.w500,

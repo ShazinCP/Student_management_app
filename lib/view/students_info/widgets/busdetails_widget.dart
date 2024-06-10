@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:student_management/constants/sizedboxes.dart';
 import 'package:student_management/helper/colors.dart';
 
 class BusDetailsWidget extends StatelessWidget {
@@ -22,9 +23,7 @@ class BusDetailsWidget extends StatelessWidget {
               fontWeight: FontWeight.bold,
               color: Colors.grey.shade700),
         ),
-        const SizedBox(
-          width: 15,
-        ),
+        cWidth15,
         Container(
           height: 50,
           width: 50,

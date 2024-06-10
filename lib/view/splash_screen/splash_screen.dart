@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFDF4DB),
+      backgroundColor: const Color(0xFFFDF4DB),
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -46,7 +46,7 @@ class _SplashScreenState extends State<SplashScreen> {
       gotologin();
     } else {
       Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (ctx) => HomeScreen()));
+          .pushReplacement(MaterialPageRoute(builder: (ctx) => const HomeScreen()));
     }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:student_management/constants/sizedboxes.dart';
 import 'package:student_management/helper/colors.dart';
 import 'package:student_management/helper/readandset_token.dart';
 import 'package:student_management/view/class_studentlist/class_studentlist_screen.dart';
@@ -67,24 +68,22 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(
               width: double.infinity,
               height: 350,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: cBackgroundColor,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.5),
-                    spreadRadius: 7,
-                    blurRadius: 7,
-                    offset: const Offset(0, 5),
-                  ),
-                ],
+                // boxShadow: [
+                //   BoxShadow(
+                //     color: Colors.black.withOpacity(0.5),
+                //     spreadRadius: 7,
+                //     blurRadius: 7,
+                //     offset: const Offset(0, 5),
+                //   ),
+                // ],
               ),
               child: HomeTopWidget(
                 name: "Shahal",
               ),
             ),
-            const SizedBox(
-              height: 50,
-            ),
+            cHeight40,
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Divider(
@@ -93,9 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 thickness: 3,
               ),
             ),
-            const SizedBox(
-              height: 40,
-            ),
+            cHeight40,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -123,9 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-            const SizedBox(
-              height: 50,
-            ),
+            cHeight50,
             Container(
               height: size.height / 7,
               width: size.width / 1.1,

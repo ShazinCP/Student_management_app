@@ -4,7 +4,7 @@ import 'package:student_management/helper/colors.dart';
 
 Widget buildListShimmerEffect() {
     return ListView.builder(
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: 10,
       itemBuilder: (context, index) {

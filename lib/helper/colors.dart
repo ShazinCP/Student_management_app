@@ -34,7 +34,7 @@ const cGreenARGBColor2 = Color.fromARGB(255, 63, 173, 67);
 
 const cBlueColor = Color(0xFF2E49FB);
 
-const cPrimaryColor = Color.fromARGB(255, 255, 202, 57);
 
+const cPrimaryColor = Color(0xFF0059AB);
 const cSecondaryColor = Color(0xFFFFFEDF);
-const cBackgroundColor = Color.fromARGB(255, 23, 46, 90);
+const cBackgroundColor = Colors.white;

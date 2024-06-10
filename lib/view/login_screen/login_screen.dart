@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:student_management/constants/sizedboxes.dart';
 import 'package:student_management/controller/login_provider.dart';
 import 'package:student_management/helper/colors.dart';
 import 'package:student_management/helper/readandset_token.dart';
@@ -52,15 +53,13 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  cHeight20,
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 14, vertical: 35),
                     child: Column(
                       children: [
-                        loginfield(
+                        Loginfield(
                           controller: loginProvider.usernameController,
                           hintText: "User Name....",
                           validator: (value) {
@@ -71,10 +70,8 @@ class LoginScreen extends StatelessWidget {
                             }
                           },
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        loginfield(
+                        cHeight20,
+                        Loginfield(
                             controller: loginProvider.passwordController,
                             hintText: "Password...",
                             validator: (value) {
@@ -87,9 +84,7 @@ class LoginScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: 50,
-                  ),
+                  cHeight50,
                   Container(
                     decoration: BoxDecoration(
                       boxShadow: [

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:student_management/constants/sizedboxes.dart';
 import 'package:student_management/controller/studentinfo_provider.dart';
 import 'package:student_management/helper/colors.dart';
 import 'package:student_management/view/paymentDetails/payment_details_screen.dart';
@@ -25,14 +26,14 @@ class StudentsInfoScreen extends StatelessWidget {
       backgroundColor: cBackgroundColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: cBackgroundColor,
+        backgroundColor: cPrimaryColor,
         title: Row(
           children: [
             Padding(
               padding: const EdgeInsets.all(5),
               child: CircleAvatar(
                 radius: 18,
-                backgroundColor: cPrimaryColor,
+                backgroundColor: cBackgroundColor,
                 child: Text(
                   gender,
                   style: TextStyle(
@@ -42,7 +43,7 @@ class StudentsInfoScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(width: 10),
+            cHeight10,
             Text(
               name,
               style: const TextStyle(color: cWhiteColor),
@@ -133,7 +134,7 @@ class StudentsInfoScreen extends StatelessWidget {
                             ),
                             child: Center(
                               child: Text(
-                                student.bus.driverName,
+                                student.busPoint.name,
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 21,
