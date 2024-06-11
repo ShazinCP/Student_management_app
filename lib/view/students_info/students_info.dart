@@ -193,7 +193,7 @@ class StudentsInfoScreen extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  const PaymentDetailsScreen(),
+                                   PaymentDetailsScreen(studentId:student.student.id,gender: gender,name: name,),
                             ),
                           );
                         },
