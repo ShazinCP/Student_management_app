@@ -31,4 +31,13 @@ class ClassStudentsProvider with ChangeNotifier {
       notifyListeners();
     }
   }
+
+      String _searchQuery = '';
+
+  String get searchQuery => _searchQuery;
+
+  void setSearchQuery(String value) {
+    _searchQuery = value;
+    notifyListeners();
+}
 }

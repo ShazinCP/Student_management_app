@@ -21,7 +21,7 @@ class BusDetailsWidget extends StatelessWidget {
           style: TextStyle(
               fontSize: 19,
               fontWeight: FontWeight.bold,
-              color: Colors.grey.shade700),
+              color: Colors.white),
         ),
         cWidth15,
         Container(

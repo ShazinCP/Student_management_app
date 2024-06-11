@@ -30,7 +30,7 @@ Padding paymentType() {
                         child: Row(
                           children: [
                             Image.asset(
-                              'assets/type/$e.png',
+                              'assets/payment_page/$e.png',
                               width: 30,
                               height: 30,
                             ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:student_management/constants/sizedboxes.dart';
+import 'package:student_management/controller/login_provider.dart';
 import 'package:student_management/helper/colors.dart';
 import 'package:student_management/helper/readandset_token.dart';
 import 'package:student_management/view/class_studentlist/class_studentlist_screen.dart';
@@ -54,6 +56,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 leading: const Icon(Icons.logout),
                 onTap: () async {
                   await clearToken();
+                  Provider.of<LoginProvider>(context,listen: false).passwordController.clear();
+                   Provider.of<LoginProvider>(context,listen: false).usernameController.clear();
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => LoginScreen()),
