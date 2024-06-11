@@ -75,7 +75,7 @@ class PaymentDetailsScreen extends StatelessWidget {
                           backgroundColor: cWhiteARGBColor4,
                           radius: 50,
                           child: Image.asset(
-                            'assets/type/Cash.png',
+                            'assets/payment_page/Cash.png',
                             height: 32,
                           ),
                         ),

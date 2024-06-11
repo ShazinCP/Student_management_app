@@ -45,6 +45,7 @@ class ClassStudentsScreen extends StatelessWidget {
                          Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 25),
                             child: TextField(
+                                onChanged:classstudentPro.setSearchQuery ,
                                         controller: classstudentPro.searchController,
                                         style: const TextStyle(color: cBlackColor),
                                         cursorColor: cPrimaryColor,
@@ -72,9 +73,13 @@ class ClassStudentsScreen extends StatelessWidget {
                                               size: 22,
                                               color: cGreyColorWithShade700,
                                             ),
-                                            suffixIcon: Icon(
-                                              CupertinoIcons.clear,
-                                              size: 19,
+                                            suffixIcon: IconButton(
+                                              onPressed: () {
+                                                classstudentPro.searchController.clear();
+                                                classstudentPro.setSearchQuery("");
+                                              },
+                                             icon: Icon(CupertinoIcons.clear) ,
+                                              iconSize: 19,
                                               color: cGreyColorWithShade700,
                                             )),
                                       ),
@@ -123,35 +128,41 @@ class ClassStudentsScreen extends StatelessWidget {
                     } else if (provider.students == null) {
                       return const Center(child: Text('No data available'));
                     } else {
-                      final classStudentsList = provider.students!;
-                      return ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: classStudentsList.length,
-                        itemBuilder: (context, index) {
-                          final student = classStudentsList[index];
 
-                          return Card(
-                            color: cPrimaryColor,
-                            child: ListTile(
-                              leading: CircleAvatar(
-                                backgroundColor: cSecondaryColor,
-                                child: Text(
-                                  student.user.gender,
+                       final classStudentsList = provider.students!
+                          .where((students) =>
+                         students.user.name!.toLowerCase().contains(provider.searchQuery.toLowerCase()))
+                          .toList();
+                      return RefreshIndicator(
+                        onRefresh: provider.fetchClassStudents,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: classStudentsList.length,
+                          itemBuilder: (context, index) {
+                            final student = classStudentsList[index];
+                        
+                            return Card(
+                              color: cPrimaryColor,
+                              child: ListTile(
+                                leading: CircleAvatar(
+                                  backgroundColor: cSecondaryColor,
+                                  child: Text(
+                                    student.user.gender,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                title: Text(
+                                  student.user.name,
                                   style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
+                                    color: cWhiteColor,
                                   ),
                                 ),
                               ),
-                              title: Text(
-                                student.user.name,
-                                style: const TextStyle(
-                                  color: cWhiteColor,
-                                ),
-                              ),
-                            ),
-                          );
-                        },
+                            );
+                          },
+                        ),
                       );
                     }
                   },

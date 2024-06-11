@@ -46,6 +46,7 @@ class BusStudentsScreen extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 25),
                             child: TextField(
+                              onChanged:busstudentsPro.setSearchQuery ,
                               controller: busstudentsPro.searchController,
                               style: const TextStyle(color: cBlackColor),
                               cursorColor: cPrimaryColor,
@@ -75,9 +76,13 @@ class BusStudentsScreen extends StatelessWidget {
                                     size: 22,
                                     color: cGreyColorWithShade700,
                                   ),
-                                  suffixIcon: Icon(
-                                    CupertinoIcons.clear,
-                                    size: 19,
+                                  suffixIcon: IconButton(
+                                    onPressed: (){
+                                      busstudentsPro.searchController.clear();
+                                       busstudentsPro.setSearchQuery("");
+                                    },
+                                   icon: Icon(CupertinoIcons.clear),
+                                    iconSize: 19,
                                     color: cGreyColorWithShade700,
                                   )),
                             ),
@@ -128,45 +133,50 @@ class BusStudentsScreen extends StatelessWidget {
                     } else if (provider.students == null) {
                       return const Center(child: Text('No data available'));
                     } else {
-                      final busStudentsList = provider.students!;
-                      return ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: busStudentsList.length,
-                        itemBuilder: (context, index) {
-                          final student = busStudentsList[index];
-
-                          return Card(
-                            color: cPrimaryColor,
-                            child: GestureDetector(
-                              onTap: () =>
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => StudentsInfoScreen(
-                                  name: student.user.name,
-                                  gender: student.user.gender,
-                                  id: student.user.id,
-                                ),
-                              )),
-                              child: ListTile(
-                                leading: CircleAvatar(
-                                  backgroundColor: cSecondaryColor,
-                                  child: Text(
-                                    student.user.gender,
+                         final busStudentsList = provider.students!
+                          .where((students) =>
+                         students.user.name!.toLowerCase().contains(provider.searchQuery.toLowerCase()))
+                          .toList();
+                      return RefreshIndicator(
+                        onRefresh: provider.fetchBusStudents,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: busStudentsList.length,
+                          itemBuilder: (context, index) {
+                            final student = busStudentsList[index];
+                        
+                            return Card(
+                              color: cPrimaryColor,
+                              child: GestureDetector(
+                                onTap: () =>
+                                    Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => StudentsInfoScreen(
+                                    name: student.user.name,
+                                    gender: student.user.gender,
+                                    id: student.user.id,
+                                  ),
+                                )),
+                                child: ListTile(
+                                  leading: CircleAvatar(
+                                    backgroundColor: cSecondaryColor,
+                                    child: Text(
+                                      student.user.gender,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                  title: Text(
+                                    student.user.name,
                                     style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
+                                      color: cWhiteColor,
                                     ),
                                   ),
                                 ),
-                                title: Text(
-                                  student.user.name,
-                                  style: const TextStyle(
-                                    color: cWhiteColor,
-                                  ),
-                                ),
                               ),
-                            ),
-                          );
-                        },
+                            );
+                          },
+                        ),
                       );
                     }
                   },
