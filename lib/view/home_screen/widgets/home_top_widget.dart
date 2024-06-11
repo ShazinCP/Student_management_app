@@ -37,23 +37,45 @@ class HomeTopWidget extends StatelessWidget {
             ),
           ),
           Positioned(
-            left: 20,
+            left: 12,
             top: 20,
-            child: Column(
+            child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text("Hi.....",
+                const Text("Hello",
                     style: TextStyle(
                         color: cWhiteColor,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 20)),
+                        fontWeight: FontWeight.w400,
+                        fontSize: 18)),
                 Padding(
-                  padding: const EdgeInsets.only(left: 20),
-                  child: Text(name ?? "",
+                  padding: const EdgeInsets.only(left: 8),
+                  child: Text("$name,",
                       style: const TextStyle(
                           color: cWhiteColor,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 20)),
+                          fontWeight: FontWeight.w400,
+                          fontSize: 18)),
+                ),
+              ],
+            ),
+          ),
+          const Positioned(
+            left: 12,
+            top: 45,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Welcome ",
+                    style: TextStyle(
+                        color: cWhiteColor,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 18)),
+                Padding(
+                  padding: EdgeInsets.only(left: 2),
+                  child: Text("back!",
+                      style: TextStyle(
+                          color: cWhiteColor,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 18)),
                 ),
               ],
             ),

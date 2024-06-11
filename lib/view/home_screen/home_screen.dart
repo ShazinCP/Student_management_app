@@ -7,14 +7,11 @@ import 'package:student_management/view/home_screen/widgets/home_center_widget.d
 import 'package:student_management/view/home_screen/widgets/home_top_widget.dart';
 import 'package:student_management/view/login_screen/login_screen.dart';
 import 'package:student_management/view/bus_studentList/bus_studentlist_screen.dart';
+import 'package:student_management/widgets/uppercase.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
+class HomeScreen extends StatelessWidget {
+  final String userName;
+  const HomeScreen({super.key, required this.userName});
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -80,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 // ],
               ),
               child: HomeTopWidget(
-                name: "Shahal",
+                name: userName.capitalize(),
               ),
             ),
             cHeight40,
@@ -98,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 HomeCenterWidget(
                   onTap: () {
-                         Navigator.push(
+                    Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => const ClassStudentsScreen(),
