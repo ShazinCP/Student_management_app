@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:student_management/constants/sizedboxes.dart';
 import 'package:student_management/controller/login_provider.dart';
 import 'package:student_management/helper/colors.dart';
@@ -93,8 +94,9 @@ class LoginScreen extends StatelessWidget {
                           spreadRadius: 2,
                           blurRadius: 5,
                           offset: const Offset(
+                             
                               0, 3), // Changes the position of the shadow
-                        ),
+                          ),
                       ],
                       borderRadius: BorderRadius.circular(
                           8), // Match the button's shape if needed
@@ -105,10 +107,17 @@ class LoginScreen extends StatelessWidget {
                           await loginProvider.loginAndGetToken();
                           final token = await readToken();
                           if (token != null && token.isNotEmpty) {
+                            // Store the username in shared preferences
+                            final sharedPref = await SharedPreferences.getInstance();
+                            await sharedPref.setString('username', loginProvider.usernameController.text);
+
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const HomeScreen()),
+                                builder: (context) => HomeScreen(
+                                  userName: loginProvider.usernameController.text,
+                                ),
+                              ),
                             );
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(

@@ -4,9 +4,7 @@ import 'package:student_management/view/home_screen/home_screen.dart';
 import 'package:student_management/view/login_screen/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({
-    super.key,
-  });
+  const SplashScreen({super.key});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -42,11 +40,13 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> checkUserLoggedIn() async {
     final sharedPref = await SharedPreferences.getInstance();
     final userLoggedIn = sharedPref.getString("accessToken");
-    if (userLoggedIn == null || userLoggedIn == false) {
+    final username = sharedPref.getString("username");
+    if (userLoggedIn == null || userLoggedIn.isEmpty) {
       gotologin();
     } else {
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (ctx) => const HomeScreen()));
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (ctx) => HomeScreen(userName: username ?? 'User')),
+      );
     }
   }
 }
