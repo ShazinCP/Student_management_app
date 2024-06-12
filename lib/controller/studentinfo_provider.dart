@@ -3,8 +3,9 @@ import 'package:student_management/model/studentinfo_model.dart';
 import 'package:student_management/services/student_info_services.dart';
 
 class StudentInfoProvider with ChangeNotifier {
+  
   StudentInfoModel? _studentInfo;
-  bool _isLoading = false;
+  bool _isLoading = true;
   String? _errorMessage;
 
 
@@ -19,7 +20,7 @@ class StudentInfoProvider with ChangeNotifier {
   Future<void> fetchStudentInfo(int id) async {
     _isLoading = true;
     _errorMessage = null;
-    // notifyListeners();
+
 
     try {
       _studentInfo = await StudentInfoServices().fetchStudentInfo(id);

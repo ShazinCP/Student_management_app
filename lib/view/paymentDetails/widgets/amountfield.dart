@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:student_management/controller/addscreen_provider.dart';
+import 'package:student_management/controller/paymentdetails_provider.dart';
 import 'package:student_management/helper/colors.dart';
 
 Padding amount() {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 15),
-    child: Consumer<AddScreenProvider>(
+    child: Consumer<BusPaymentDetailsProvider>(
       builder: (context, provider, child) {
         return SizedBox(
           width: 300,
@@ -25,7 +25,7 @@ Padding amount() {
               }
             },
             keyboardType: TextInputType.number,
-            focusNode: provider.amount,
+              controller: provider.amountController,
             decoration: InputDecoration(
               contentPadding:
                   const EdgeInsets.symmetric(horizontal: 15, vertical: 15),

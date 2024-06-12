@@ -3,7 +3,10 @@ import 'package:student_management/constants/sizedboxes.dart';
 import 'package:student_management/helper/colors.dart';
 
 class PaymentCounts extends StatelessWidget {
-  const PaymentCounts({super.key});
+  String? balanceAmount;
+  String? paidAmount;
+  String? totalAmount;
+   PaymentCounts({super.key,required this.balanceAmount,required this.paidAmount,required this.totalAmount});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +32,7 @@ class PaymentCounts extends StatelessWidget {
                 Radius.circular(15),
               ),
             ),
-            child: const Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
@@ -47,7 +50,7 @@ class PaymentCounts extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(left: 15),
                   child: Text(
-                    '₹ 5000',
+                    '₹$totalAmount',
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 19,
@@ -115,7 +118,7 @@ class PaymentCounts extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '₹ 3000',
+                        '₹$paidAmount',
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 19,
@@ -123,7 +126,7 @@ class PaymentCounts extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '₹ 2000',
+                        '₹$balanceAmount',
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 19,

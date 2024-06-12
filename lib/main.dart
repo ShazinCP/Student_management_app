@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:student_management/controller/addscreen_provider.dart';
 import 'package:student_management/controller/bus_studentsprovider.dart';
 import 'package:student_management/controller/class_studentsprovider.dart';
 import 'package:student_management/controller/login_provider.dart';
@@ -19,10 +18,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => AddScreenProvider()),
         ChangeNotifierProvider(create: (context) => ClassStudentsProvider()),
         ChangeNotifierProvider(create: (context) => BusStudentsProvider()),
-        ChangeNotifierProvider(create: (context) => PaymentDetailsProvider()),
+        ChangeNotifierProvider(create: (context) => BusPaymentDetailsProvider()),
         ChangeNotifierProvider(create: (context) => LoginProvider()),
         ChangeNotifierProvider(create: (context) => StudentInfoProvider()),
       ],
