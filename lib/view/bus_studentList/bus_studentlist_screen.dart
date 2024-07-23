@@ -81,7 +81,7 @@ class BusStudentsScreen extends StatelessWidget {
                                       busstudentsPro.searchController.clear();
                                        busstudentsPro.setSearchQuery("");
                                     },
-                                   icon: Icon(CupertinoIcons.clear),
+                                   icon: const Icon(CupertinoIcons.clear),
                                     iconSize: 19,
                                     color: cGreyColorWithShade700,
                                   )),
@@ -135,7 +135,7 @@ class BusStudentsScreen extends StatelessWidget {
                     } else {
                          final busStudentsList = provider.students!
                           .where((students) =>
-                         students.user.name!.toLowerCase().contains(provider.searchQuery.toLowerCase()))
+                         students.user.name.toLowerCase().contains(provider.searchQuery.toLowerCase()))
                           .toList();
                       return RefreshIndicator(
                         onRefresh: provider.fetchBusStudents,

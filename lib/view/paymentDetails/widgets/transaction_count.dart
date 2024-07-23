@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:student_management/constants/sizedboxes.dart';
 import 'package:student_management/helper/colors.dart';
 
+// ignore: must_be_immutable
 class PaymentCounts extends StatelessWidget {
   String? balanceAmount;
   String? paidAmount;
@@ -35,7 +36,7 @@ class PaymentCounts extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
+                const Padding(
                   padding: EdgeInsets.all(10.0),
                   child: Text(
                     'Total Amount',
@@ -48,10 +49,10 @@ class PaymentCounts extends StatelessWidget {
                 ),
                 cHeight5,
                 Padding(
-                  padding: EdgeInsets.only(left: 15),
+                  padding: const EdgeInsets.only(left: 15),
                   child: Text(
                     '₹$totalAmount',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 19,
                       color: cGreenColor,
@@ -59,7 +60,7 @@ class PaymentCounts extends StatelessWidget {
                   ),
                 ),
                 cHeight25,
-                Padding(
+                const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -113,13 +114,13 @@ class PaymentCounts extends StatelessWidget {
                 ),
                 cHeight6,
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30),
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         '₹$paidAmount',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 19,
                           color: cGreenARGBColor,
@@ -127,7 +128,7 @@ class PaymentCounts extends StatelessWidget {
                       ),
                       Text(
                         '₹$balanceAmount',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 19,
                           color: cRedColor,

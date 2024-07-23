@@ -4,7 +4,6 @@ import 'package:student_management/constants/sizedboxes.dart';
 import 'package:student_management/controller/paymentdetails_provider.dart';
 import 'package:student_management/helper/colors.dart';
 import 'package:student_management/view/paymentDetails/widgets/amountfield.dart';
-import 'package:student_management/view/paymentDetails/widgets/datefield.dart';
 import 'package:student_management/view/paymentDetails/widgets/type_dropdown.dart';
 
 class AlertBoxWidget extends StatelessWidget {

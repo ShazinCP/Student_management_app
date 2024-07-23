@@ -78,7 +78,7 @@ class ClassStudentsScreen extends StatelessWidget {
                                                 classstudentPro.searchController.clear();
                                                 classstudentPro.setSearchQuery("");
                                               },
-                                             icon: Icon(CupertinoIcons.clear) ,
+                                             icon: const Icon(CupertinoIcons.clear) ,
                                               iconSize: 19,
                                               color: cGreyColorWithShade700,
                                             )),
@@ -131,7 +131,7 @@ class ClassStudentsScreen extends StatelessWidget {
 
                        final classStudentsList = provider.students!
                           .where((students) =>
-                         students.user.name!.toLowerCase().contains(provider.searchQuery.toLowerCase()))
+                         students.user.name.toLowerCase().contains(provider.searchQuery.toLowerCase()))
                           .toList();
                       return RefreshIndicator(
                         onRefresh: provider.fetchClassStudents,
