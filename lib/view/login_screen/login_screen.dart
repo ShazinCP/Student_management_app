@@ -21,125 +21,121 @@ class LoginScreen extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: cBackgroundColor,
-        body: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: SingleChildScrollView(
-            child: Form(
-              key: formkey,
-              child: Column(
-                children: [
-                  Center(
-                    child: Container(
-                      height: size.height * 0.4,
-                      width: size.width,
-                      decoration: BoxDecoration(
-                        color: cPrimaryColor,
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(30),
-                          bottomRight: Radius.circular(30),
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 2,
-                            blurRadius: 5,
-                            offset: const Offset(
-                                0, 3), // Changes the position of the shadow
-                          ),
-                        ],
+        backgroundColor: cSecondaryColor,
+        body: SingleChildScrollView(
+          child: Form(
+            key: formkey,
+            child: Column(
+              children: [
+                Center(
+                  child: Container(
+                    height: size.height * 0.4,
+                    width: size.width,
+                    decoration: const BoxDecoration(
+                      color: cPrimaryColor,
+                      borderRadius: BorderRadius.only(
+                        // topLeft: Radius.circular(30),
+                        bottomRight: Radius.circular(30),
+                        bottomLeft: Radius.circular(30)
                       ),
-                      child: Image.asset(
-                        "assets/login_page/login.png",
-                      ),
+                      // boxShadow: [
+                      //   BoxShadow(
+                      //     color: Colors.grey.withOpacity(0.5),
+                      //     spreadRadius: 2,
+                      //     blurRadius: 5,
+                      //     offset: const Offset(
+                      //         0, 3), // Changes the position of the shadow
+                      //   ),
+                      // ],
+                    ),
+                    child: Image.asset(
+                      "assets/login_page/login.png",
                     ),
                   ),
-                  cHeight20,
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 14, vertical: 35),
-                    child: Column(
-                      children: [
-                        Loginfield(
-                          controller: loginProvider.usernameController,
-                          hintText: "User Name....",
+                ),
+                cHeight20,
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 14, vertical: 35),
+                  child: Column(
+                    children: [
+                      Loginfield(
+                        controller: loginProvider.usernameController,
+                        hintText: "userame....",
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter username ';
+                          } else {
+                            return null;
+                          }
+                        },
+                      ),
+                      cHeight20,
+                      Loginfield(
+                          controller: loginProvider.passwordController,
+                          hintText: "password...",
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'Please enter username ';
+                              return 'Please enter password';
                             } else {
                               return null;
                             }
-                          },
+                          }),
+                    ],
+                  ),
+                ),
+                cHeight50,
+                Container(
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.5),
+                        spreadRadius: 1,
+                        blurRadius: 3,
+                        offset: const Offset(0, 1), // Changes the position of the shadow
                         ),
-                        cHeight20,
-                        Loginfield(
-                            controller: loginProvider.passwordController,
-                            hintText: "Password...",
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter password';
-                              } else {
-                                return null;
-                              }
-                            }),
-                      ],
+                    ],
+                    borderRadius: BorderRadius.circular(
+                        8), // Match the button's shape if needed
+                  ),
+                  child: CupertinoButton(
+                    onPressed: () async {
+                      if (formkey.currentState!.validate()) {
+                        await loginProvider.loginAndGetToken();
+                        final token = await readToken();
+                        if (token != null && token.isNotEmpty) {
+                          // Store the username in shared preferences
+                          final sharedPref = await SharedPreferences.getInstance();
+                          await sharedPref.setString('username', loginProvider.usernameController.text);
+        
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => HomeScreen(
+                                userName: loginProvider.usernameController.text,
+                              ),
+                            ),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content:
+                                  Text('Failed to login. Please try again.'),
+                            ),
+                          );
+                        }
+                      } else {
+                        print('empty value');
+                      }
+                    },
+                    color: cPrimaryColor,
+                    child: const Text(
+                      "Login",
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
-                  cHeight50,
-                  Container(
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.5),
-                          spreadRadius: 2,
-                          blurRadius: 5,
-                          offset: const Offset(
-                             
-                              0, 3), // Changes the position of the shadow
-                          ),
-                      ],
-                      borderRadius: BorderRadius.circular(
-                          8), // Match the button's shape if needed
-                    ),
-                    child: CupertinoButton(
-                      onPressed: () async {
-                        if (formkey.currentState!.validate()) {
-                          await loginProvider.loginAndGetToken();
-                          final token = await readToken();
-                          if (token != null && token.isNotEmpty) {
-                            // Store the username in shared preferences
-                            final sharedPref = await SharedPreferences.getInstance();
-                            await sharedPref.setString('username', loginProvider.usernameController.text);
-
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => HomeScreen(
-                                  userName: loginProvider.usernameController.text,
-                                ),
-                              ),
-                            );
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content:
-                                    Text('Failed to login. Please try again.'),
-                              ),
-                            );
-                          }
-                        } else {
-                          print('empty value');
-                        }
-                      },
-                      color: cPrimaryColor,
-                      child: const Text(
-                        "Login",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  )
-                ],
-              ),
+                )
+              ],
             ),
           ),
         ),

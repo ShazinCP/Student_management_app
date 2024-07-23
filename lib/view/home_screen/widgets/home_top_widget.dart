@@ -20,9 +20,9 @@ class HomeTopWidget extends StatelessWidget {
             height: 260,
             decoration: const BoxDecoration(
                 color: cPrimaryColor,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(50),
-                    bottomRight: Radius.circular(50))),
+                borderRadius: BorderRadius.all(
+                   Radius.circular(30),
+                    )),
           ),
           Positioned(
             left: 85,

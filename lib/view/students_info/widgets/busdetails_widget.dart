@@ -18,7 +18,7 @@ class BusDetailsWidget extends StatelessWidget {
       children: [
         Text(
           "$contant :",
-          style: TextStyle(
+          style: const TextStyle(
               fontSize: 19,
               fontWeight: FontWeight.bold,
               color: Colors.white),
@@ -33,8 +33,8 @@ class BusDetailsWidget extends StatelessWidget {
               boxShadow: [
                 BoxShadow(
                     color: cBlackColor.withOpacity(0.5),
-                    spreadRadius: 2,
-                    blurRadius: 2,
+                    spreadRadius: 1,
+                    blurRadius: 1,
                     offset: const Offset(0, 2)),
               ]),
           child: Center(
