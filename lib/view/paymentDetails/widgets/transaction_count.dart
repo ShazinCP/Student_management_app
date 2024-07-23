@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:student_management/constants/sizedboxes.dart';
 import 'package:student_management/helper/colors.dart';
 
+// ignore: must_be_immutable
 class PaymentCounts extends StatelessWidget {
   final String? balanceAmount;
   final String? paidAmount;

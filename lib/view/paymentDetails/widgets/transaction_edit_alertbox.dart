@@ -12,6 +12,7 @@ class TransactionEditAlertBox extends StatefulWidget {
   final String transactionType;
   final int transactionId;
 
+
   const TransactionEditAlertBox({
     super.key,
     required this.studentId,
@@ -28,6 +29,7 @@ class TransactionEditAlertBox extends StatefulWidget {
 class _TransactionEditAlertBoxState extends State<TransactionEditAlertBox> {
   @override
   void initState() {
+
     final buspaymentPro =
         Provider.of<BusPaymentDetailsProvider>(context, listen: false);
     buspaymentPro.amountController.text = widget.amount;

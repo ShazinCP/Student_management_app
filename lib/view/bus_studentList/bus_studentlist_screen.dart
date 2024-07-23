@@ -82,7 +82,6 @@ class BusStudentsScreen extends StatelessWidget {
                                  icon: const Icon(CupertinoIcons.clear),
                                   iconSize: 19,
                                   color: cGreyColorWithShade700,
-                                )),
                           ),
                         ),
                         cHeight15,
@@ -161,7 +160,6 @@ class BusStudentsScreen extends StatelessWidget {
                                 leading: CircleAvatar(
                                   backgroundColor: cSecondaryColor,
                                   child: Text(
-                                    student.user.gender,
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                     ),
