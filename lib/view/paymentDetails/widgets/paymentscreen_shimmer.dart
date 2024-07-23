@@ -14,7 +14,7 @@ Widget paymentShimmerEffect(double screenHeight, double screenWidth) {
             baseColor: Colors.grey[300]!,
             highlightColor: Colors.grey[100]!,
             child: Container(
-              color: Colors.white,
+              color: cWhiteColor,
             ),
           ),
         ),
@@ -47,17 +47,17 @@ Widget paymentShimmerEffect(double screenHeight, double screenWidth) {
                     color: cPrimaryColor,
                     elevation: 0,
                     child: ListTile(
-                      leading: CircleAvatar(
+                      leading: const CircleAvatar(
                         backgroundColor: cWhiteARGBColor4,
                         radius: 50,
                       ),
                       title: Container(
                         height: 10,
-                        color: Colors.white,
+                        color: cWhiteColor,
                       ),
                       subtitle: Container(
                         height: 10,
-                        color: Colors.white,
+                        color: cWhiteColor,
                       ),
                       trailing: Container(
                         height: 30,

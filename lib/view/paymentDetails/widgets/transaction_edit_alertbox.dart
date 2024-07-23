@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:student_management/constants/sizedboxes.dart';
 import 'package:student_management/controller/paymentdetails_provider.dart';
 import 'package:student_management/helper/colors.dart';
-import 'package:student_management/model/bus_payments_model.dart';
 import 'package:student_management/view/paymentDetails/widgets/amountfield.dart';
 import 'package:student_management/view/paymentDetails/widgets/type_dropdown.dart';
 
@@ -12,23 +11,31 @@ class TransactionEditAlertBox extends StatefulWidget {
   final String amount;
   final String transactionType;
   final int transactionId;
-  
-   TransactionEditAlertBox({super.key, required this.studentId, required this.amount, required this.transactionType, required this.transactionId, });
+
+  const TransactionEditAlertBox({
+    super.key,
+    required this.studentId,
+    required this.amount,
+    required this.transactionType,
+    required this.transactionId,
+  });
 
   @override
-  State<TransactionEditAlertBox> createState() => _TransactionEditAlertBoxState();
+  State<TransactionEditAlertBox> createState() =>
+      _TransactionEditAlertBoxState();
 }
 
 class _TransactionEditAlertBoxState extends State<TransactionEditAlertBox> {
   @override
   void initState() {
-    // TODO: implement initState
-    final buspaymentPro=Provider.of<BusPaymentDetailsProvider>(context,listen: false);
-    buspaymentPro.amountController.text=widget.amount;
-    buspaymentPro.selectedItem=widget.transactionType;
+    final buspaymentPro =
+        Provider.of<BusPaymentDetailsProvider>(context, listen: false);
+    buspaymentPro.amountController.text = widget.amount;
+    buspaymentPro.selectedItem = widget.transactionType;
 
     super.initState();
   }
+
   final formkey = GlobalKey<FormState>();
 
   @override
@@ -76,9 +83,10 @@ class _TransactionEditAlertBoxState extends State<TransactionEditAlertBox> {
                         ),
                       ),
                       GestureDetector(
-                         onTap: () async {
-                             if (formkey.currentState!.validate()) {
-                            await provider.editBusTransaction(widget.studentId,widget.transactionId);
+                        onTap: () async {
+                          if (formkey.currentState!.validate()) {
+                            await provider.editBusTransaction(
+                                widget.studentId, widget.transactionId);
                             Navigator.pop(context);
                             provider.amountController.clear();
                             provider.selectedItem = null;

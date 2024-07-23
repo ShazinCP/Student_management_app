@@ -14,37 +14,36 @@ class BusPaymentServices {
     const url =
         "https://school-management-system-xbpl.onrender.com/teacher/payment/";
     try {
-     final response = await _dio.post(
-      url,
-      data: jsonEncode(requestData),
-      options: Options(
-        headers: {
-          'Authorization': 'Bearer $token',
-        },
-      ),
-    );
-    //show success or not messege based on status
-    if (response.statusCode == 201) {
-      print('Bus Payment Post success:${response.data}');
-
-    } else {
-      print('Updation failed with status code: ${response.statusCode}');
-      print('Response body: ${response.data}');
-      throw Exception('Update failed');
-    }
-    }on DioException catch (e) {
+      final response = await _dio.post(
+        url,
+        data: jsonEncode(requestData),
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      //show success or not messege based on status
+      if (response.statusCode == 201) {
+        print('Bus Payment Post success: ${response.data}');
+      } else {
+        log('Updation failed with status code: ${response.statusCode}');
+        print('Response body: ${response.data}');
+        throw Exception('Update failed');
+      }
+    } on DioException catch (e) {
       if (e.response != null) {
         log("Error: ${e.response?.data}");
-      } 
-}
-    
+      }
+    }
   }
 
   //-------------------------------get payments transactions---------------
-   Future<BusPaymentsModel?> fetchBusPayments(int studentId) async {
+  Future<BusPaymentsModel?> fetchBusPayments(int studentId) async {
     String? token = await readToken();
     print("Token: $token");
-    final url = 'https://school-management-system-xbpl.onrender.com/teacher/transactions/?user_id=$studentId';
+    final url =
+        'https://school-management-system-xbpl.onrender.com/teacher/transactions/?user_id=$studentId';
     try {
       final response = await _dio.get(
         url,
@@ -57,7 +56,8 @@ class BusPaymentServices {
       if (response.statusCode == 200) {
         final Map<String, dynamic> json = response.data;
         print('Response: ${response.data}');
-        final BusPaymentsModel busPaymentsModel = BusPaymentsModel.fromJson(json);
+        final BusPaymentsModel busPaymentsModel =
+            BusPaymentsModel.fromJson(json);
         return busPaymentsModel;
       } else {
         throw Exception('Failed to load data');
@@ -71,51 +71,48 @@ class BusPaymentServices {
   }
 
   //-------------------delete payment Transactions-------------------
-    Future<void> deleteTransaction(transactionId)async{
-      String? token = await readToken();
-  final url='https://school-management-system-xbpl.onrender.com/teacher/transactions/$transactionId/';
-   final response=await _dio.delete(url,   options: Options(
+  Future<void> deleteTransaction(transactionId) async {
+    String? token = await readToken();
+    final url =
+        'https://school-management-system-xbpl.onrender.com/teacher/transactions/$transactionId/';
+    final response = await _dio.delete(url,
+        options: Options(
           headers: {
             'Authorization': 'Bearer $token',
           },
-      ));
-   if(response.statusCode==204){
-    print('delete success');
-   }else{
-   //error
-   print('error');
-   }
+        ));
+    if (response.statusCode == 204) {
+      print('delete success');
+    } else {
+      //error
+      print('error');
+    }
   }
 
-
   //-------------------edit transactions--------------
-  Future<void> editBusTransaction(transactionId,requestData) async {
+  Future<void> editBusTransaction(transactionId, requestData) async {
     String? token = await readToken();
     try {
-       final url =
-        "https://school-management-system-xbpl.onrender.com/teacher/transactions/$transactionId/";
-    final response = await _dio.put(
-      url,
-      data: jsonEncode(requestData),
-      options: Options(
-        headers: {
-          'Authorization': 'Bearer $token',
-        },
-      ),
-    );
+      final url =
+          "https://school-management-system-xbpl.onrender.com/teacher/transactions/$transactionId/";
+      final response = await _dio.put(
+        url,
+        data: jsonEncode(requestData),
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
       if (response.statusCode == 200) {
-      print('Updation success');
-    }else{
-      print('Response body: ${response.data}');
-    }
-    }on DioException catch (e) {
-      if(e.response!=null){
-              log("${e.response?.data}");
+        print('Updation success');
+      } else {
+        print('Response body: ${response.data}');
       }
-    
+    } on DioException catch (e) {
+      if (e.response != null) {
+        log("${e.response?.data}");
+      }
     }
-   
-}
-
-
+  }
 }

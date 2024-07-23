@@ -5,7 +5,7 @@ import 'package:student_management/controller/class_studentsprovider.dart';
 import 'package:student_management/controller/login_provider.dart';
 import 'package:student_management/controller/paymentdetails_provider.dart';
 import 'package:student_management/controller/studentinfo_provider.dart';
-import 'package:student_management/view/splash_screen/splash_screen.dart';
+import 'package:student_management/view/login_screen/login_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,14 +20,15 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => ClassStudentsProvider()),
         ChangeNotifierProvider(create: (context) => BusStudentsProvider()),
-        ChangeNotifierProvider(create: (context) => BusPaymentDetailsProvider()),
+        ChangeNotifierProvider(
+            create: (context) => BusPaymentDetailsProvider()),
         ChangeNotifierProvider(create: (context) => LoginProvider()),
         ChangeNotifierProvider(create: (context) => StudentInfoProvider()),
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
         title: 'Student Management',
         debugShowCheckedModeBanner: false,
-        home: SplashScreen(),
+        home: LoginScreen(),
       ),
     );
   }
