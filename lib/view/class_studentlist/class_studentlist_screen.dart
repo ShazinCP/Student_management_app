@@ -11,10 +11,10 @@ class ClassStudentsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final classstudentPro=Provider.of<ClassStudentsProvider>(context);
+    final classstudentPro = Provider.of<ClassStudentsProvider>(context);
     return SafeArea(
       child: Scaffold(
-        backgroundColor: cBackgroundColor,
+        backgroundColor: cSecondaryColor,
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -24,65 +24,66 @@ class ClassStudentsScreen extends StatelessWidget {
                   Center(
                     child: Container(
                       height: 120,
-                      width: 350,
+                      width: 360,
                       decoration: const BoxDecoration(
                         boxShadow: [
                           BoxShadow(
-                            color: cShadowColor,
+                            color: cGreyColor,
                             offset: Offset(0, 2),
                             blurRadius: 2,
                           ),
                         ],
                         color: cPrimaryColor,
-                        borderRadius: BorderRadius.only(
-                          bottomRight: Radius.circular(45),
-                          topLeft: Radius.circular(45),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(25),
                         ),
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                         Padding(
+                          Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 25),
                             child: TextField(
-                                onChanged:classstudentPro.setSearchQuery ,
-                                        controller: classstudentPro.searchController,
-                                        style: const TextStyle(color: cBlackColor),
-                                        cursorColor: cPrimaryColor,
-                                        decoration: InputDecoration(
-                                            enabledBorder: const OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(Radius.circular(14)),
-                                              borderSide: BorderSide(
-                                                color: cBlackColor,
-                                              ),
-                                            ),
-                                            focusedBorder: const OutlineInputBorder(
-                                                borderRadius: BorderRadius.all(Radius.circular(14)),
-                                                borderSide: BorderSide(
-                                                  color: cBlackColor,
-                                                )),
-                                            fillColor: cWhiteColor,
-                                            filled: true,
-                                            hintText: 'Search Student...',
-                                            hintStyle: TextStyle(
-                                              color: cGreyColorWithShade700,
-                                              fontSize: 14,
-                                            ),
-                                            prefixIcon: Icon(
-                                              CupertinoIcons.search,
-                                              size: 22,
-                                              color: cGreyColorWithShade700,
-                                            ),
-                                            suffixIcon: IconButton(
-                                              onPressed: () {
-                                                classstudentPro.searchController.clear();
-                                                classstudentPro.setSearchQuery("");
-                                              },
-                                             icon: const Icon(CupertinoIcons.clear) ,
-                                              iconSize: 19,
-                                              color: cGreyColorWithShade700,
-                                            )),
-                                      ),
+                              onChanged: classstudentPro.setSearchQuery,
+                              controller: classstudentPro.searchController,
+                              style: const TextStyle(color: cBlackColor),
+                              cursorColor: cPrimaryColor,
+                              decoration: InputDecoration(
+                                  enabledBorder: const OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(14)),
+                                    borderSide: BorderSide(
+                                      color: cBlackColor,
+                                    ),
+                                  ),
+                                  focusedBorder: const OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(14)),
+                                      borderSide: BorderSide(
+                                        color: cBlackColor,
+                                      )),
+                                  fillColor: cWhiteColor,
+                                  filled: true,
+                                  hintText: 'Search Student...',
+                                  hintStyle: TextStyle(
+                                    color: cGreyColorWithShade700,
+                                    fontSize: 14,
+                                  ),
+                                  prefixIcon: Icon(
+                                    CupertinoIcons.search,
+                                    size: 22,
+                                    color: cGreyColorWithShade700,
+                                  ),
+                                  suffixIcon: IconButton(
+                                    onPressed: () {
+                                      classstudentPro.searchController.clear();
+                                      classstudentPro.setSearchQuery("");
+                                    },
+                                    icon: const Icon(CupertinoIcons.clear),
+                                    iconSize: 19,
+                                    color: cGreyColorWithShade700,
+                                  )),
+                            ),
                           ),
                           cHeight15,
                         ],
@@ -124,14 +125,15 @@ class ClassStudentsScreen extends StatelessWidget {
                     if (provider.isLoading) {
                       return buildListShimmerEffect();
                     } else if (provider.errorMessage != null) {
-                      return Center(child: Text('Error: ${provider.errorMessage}'));
+                      return Center(
+                          child: Text('Error: ${provider.errorMessage}'));
                     } else if (provider.students == null) {
                       return const Center(child: Text('No data available'));
                     } else {
-
-                       final classStudentsList = provider.students!
-                          .where((students) =>
-                         students.user.name.toLowerCase().contains(provider.searchQuery.toLowerCase()))
+                      final classStudentsList = provider.students!
+                          .where((students) => students.user.name
+                              .toLowerCase()
+                              .contains(provider.searchQuery.toLowerCase()))
                           .toList();
                       return RefreshIndicator(
                         onRefresh: provider.fetchClassStudents,
@@ -140,7 +142,7 @@ class ClassStudentsScreen extends StatelessWidget {
                           itemCount: classStudentsList.length,
                           itemBuilder: (context, index) {
                             final student = classStudentsList[index];
-                        
+
                             return Card(
                               color: cPrimaryColor,
                               child: ListTile(
@@ -174,5 +176,4 @@ class ClassStudentsScreen extends StatelessWidget {
       ),
     );
   }
-
 }

@@ -29,6 +29,7 @@ Padding paymentType() {
                 ),
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton<String>(
+                    borderRadius: BorderRadius.circular(10),
                     value: provider.selectedItem,
                     onChanged: (value) {
                       state.didChange(value);
@@ -44,7 +45,7 @@ Padding paymentType() {
                               width: 30,
                               height: 30,
                             ),
-                            SizedBox(width: 10),
+                            cWidth10,
                             Text(
                               e,
                               style: const TextStyle(fontSize: 17),

@@ -21,14 +21,14 @@ class HomeCenterWidget extends StatelessWidget {
         height: 120,
         decoration: BoxDecoration(
           color: cPrimaryColor,
-          borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(30), topRight: Radius.circular(30)),
+          borderRadius: const BorderRadius.all(
+              Radius.circular(20),),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.5), // Shadow color
-              spreadRadius: 5, // Spread radius
-              blurRadius: 7, // Blur radius
-              offset: const Offset(0, 3), // Offset in x and y directions
+              spreadRadius: 2, // Spread radius
+              blurRadius: 3, // Blur radius
+              offset: const Offset(0, 1), // Offset in x and y directions
             ),
           ],
         ),
@@ -44,17 +44,20 @@ class HomeCenterWidget extends StatelessWidget {
                     image: AssetImage(image!),
                     fit: BoxFit.cover,
                   ),
-                  borderRadius: const BorderRadius.only(
-                      topRight: Radius.circular(30),
-                      bottomLeft: Radius.circular(30)),
+                  borderRadius: const BorderRadius.all(
+                      Radius.circular(10),
+                     ),
                 ),
               ),
-              Text(
-                text!,
-                style: const TextStyle(
-                    color: cWhiteColor,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 15),
+              Padding(
+                padding: const EdgeInsets.only(top: 4),
+                child: Text(
+                  text!,
+                  style: const TextStyle(
+                      color: cWhiteColor,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 17),
+                ),
               )
             ],
           ),

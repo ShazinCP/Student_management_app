@@ -4,10 +4,14 @@ import 'package:student_management/helper/colors.dart';
 
 // ignore: must_be_immutable
 class PaymentCounts extends StatelessWidget {
-  String? balanceAmount;
-  String? paidAmount;
-  String? totalAmount;
-   PaymentCounts({super.key,required this.balanceAmount,required this.paidAmount,required this.totalAmount});
+  final String? balanceAmount;
+  final String? paidAmount;
+  final String? totalAmount;
+  const PaymentCounts(
+      {super.key,
+      required this.balanceAmount,
+      required this.paidAmount,
+      required this.totalAmount});
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +26,9 @@ class PaymentCounts extends StatelessWidget {
             decoration: const BoxDecoration(
               boxShadow: [
                 BoxShadow(
-                  color: cShadowColor,
-                  offset: Offset(0, 4),
-                  blurRadius: 4,
+                  color: Colors.grey,
+                  offset: Offset(0, 1),
+                  blurRadius: 2,
                   spreadRadius: 2,
                 ),
               ],
@@ -43,7 +47,7 @@ class PaymentCounts extends StatelessWidget {
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 19,
-                      color: cBlackColor,
+                      color: cSecondaryColor,
                     ),
                   ),
                 ),
@@ -55,7 +59,7 @@ class PaymentCounts extends StatelessWidget {
                     style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 19,
-                      color: cGreenColor,
+                      color: cSecondaryColor,
                     ),
                   ),
                 ),
@@ -82,7 +86,7 @@ class PaymentCounts extends StatelessWidget {
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 16,
-                              color: cBlackColor,
+                              color: cSecondaryColor,
                             ),
                           ),
                         ],
@@ -104,7 +108,7 @@ class PaymentCounts extends StatelessWidget {
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 16,
-                              color: cBlackColor,
+                              color: cSecondaryColor,
                             ),
                           ),
                         ],
