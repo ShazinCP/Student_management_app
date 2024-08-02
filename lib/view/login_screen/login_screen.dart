@@ -6,8 +6,8 @@ import 'package:student_management/constants/sizedboxes.dart';
 import 'package:student_management/controller/login_provider.dart';
 import 'package:student_management/helper/colors.dart';
 import 'package:student_management/helper/readandset_token.dart';
-import 'package:student_management/view/home_screen/home_screen.dart';
 import 'package:student_management/view/login_screen/widgets/textform_widget.dart';
+import 'package:student_management/view/teacher_view/home_screen/home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
