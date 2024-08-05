@@ -4,12 +4,12 @@ import 'package:student_management/constants/sizedboxes.dart';
 import 'package:student_management/controller/login_provider.dart';
 import 'package:student_management/helper/colors.dart';
 import 'package:student_management/helper/readandset_token.dart';
-import 'package:student_management/view/class_studentlist/class_studentlist_screen.dart';
-import 'package:student_management/view/home_screen/widgets/home_center_widget.dart';
-import 'package:student_management/view/home_screen/widgets/home_top_widget.dart';
 import 'package:student_management/view/login_screen/login_screen.dart';
-import 'package:student_management/view/bus_studentList/bus_studentlist_screen.dart';
-import 'package:student_management/view/profile_screen/profile_screen.dart';
+import 'package:student_management/view/teacher_view/bus_studentList/bus_studentlist_screen.dart';
+import 'package:student_management/view/teacher_view/class_studentlist/class_studentlist_screen.dart';
+import 'package:student_management/view/teacher_view/home_screen/widgets/home_center_widget.dart';
+import 'package:student_management/view/teacher_view/home_screen/widgets/home_top_widget.dart';
+import 'package:student_management/view/teacher_view/profile_screen/profile_screen.dart';
 import 'package:student_management/widgets/uppercase.dart';
 
 class HomeScreen extends StatelessWidget {

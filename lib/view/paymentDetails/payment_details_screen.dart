@@ -4,10 +4,10 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:student_management/constants/sizedboxes.dart';
 import 'package:student_management/controller/paymentdetails_provider.dart';
 import 'package:student_management/helper/colors.dart';
+import 'package:provider/provider.dart';
 import 'package:student_management/view/paymentDetails/widgets/alertbox.dart';
 import 'package:student_management/view/paymentDetails/widgets/paymentscreen_shimmer.dart';
 import 'package:student_management/view/paymentDetails/widgets/transaction_count.dart';
-import 'package:provider/provider.dart';
 import 'package:student_management/view/paymentDetails/widgets/transaction_edit_alertbox.dart';
 
 class PaymentDetailsScreen extends StatefulWidget {
@@ -23,6 +23,7 @@ class PaymentDetailsScreen extends StatefulWidget {
   });
 
   @override
+  // ignore: library_private_types_in_public_api
   _PaymentDetailsScreenState createState() => _PaymentDetailsScreenState();
 }
 

@@ -35,7 +35,7 @@ class BusStudentsScreen extends StatelessWidget {
                       ],
                       color: cPrimaryColor,
                       borderRadius: BorderRadius.all(
-                       Radius.circular(25),
+                        Radius.circular(25),
                       ),
                     ),
                     child: Column(
@@ -44,44 +44,46 @@ class BusStudentsScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 25),
                           child: TextField(
-                            onChanged:busstudentsPro.setSearchQuery ,
+                            onChanged: busstudentsPro.setSearchQuery,
                             controller: busstudentsPro.searchController,
                             style: const TextStyle(color: cBlackColor),
                             cursorColor: cPrimaryColor,
                             decoration: InputDecoration(
-                                enabledBorder: const OutlineInputBorder(
+                              enabledBorder: const OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(14)),
+                                borderSide: BorderSide(
+                                  color: cWhiteColor,
+                                ),
+                              ),
+                              focusedBorder: const OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(14)),
                                   borderSide: BorderSide(
                                     color: cWhiteColor,
-                                  ),
-                                ),
-                                focusedBorder: const OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(14)),
-                                    borderSide: BorderSide(
-                                      color: cWhiteColor,
-                                    )),
-                                fillColor: cWhiteColor,
-                                filled: true,
-                                hintText: 'Search Student...',
-                                hintStyle: TextStyle(
-                                  color: cGreyColorWithShade700,
-                                  fontSize: 14,
-                                ),
-                                prefixIcon: Icon(
-                                  CupertinoIcons.search,
-                                  size: 22,
-                                  color: cGreyColorWithShade700,
-                                ),
-                                suffixIcon: IconButton(
-                                  onPressed: (){
-                                    busstudentsPro.searchController.clear();
-                                     busstudentsPro.setSearchQuery("");
-                                  },
-                                 icon: const Icon(CupertinoIcons.clear),
-                                  iconSize: 19,
-                                  color: cGreyColorWithShade700,
+                                  )),
+                              fillColor: cWhiteColor,
+                              filled: true,
+                              hintText: 'Search Student...',
+                              hintStyle: TextStyle(
+                                color: cGreyColorWithShade700,
+                                fontSize: 14,
+                              ),
+                              prefixIcon: Icon(
+                                CupertinoIcons.search,
+                                size: 22,
+                                color: cGreyColorWithShade700,
+                              ),
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  busstudentsPro.searchController.clear();
+                                  busstudentsPro.setSearchQuery("");
+                                },
+                                icon: const Icon(CupertinoIcons.clear),
+                                iconSize: 19,
+                                color: cGreyColorWithShade700,
+                              ),
+                            ),
                           ),
                         ),
                         cHeight15,
@@ -133,9 +135,10 @@ class BusStudentsScreen extends StatelessWidget {
                   } else if (provider.students == null) {
                     return const Center(child: Text('No data available'));
                   } else {
-                       final busStudentsList = provider.students!
-                        .where((students) =>
-                       students.user.name.toLowerCase().contains(provider.searchQuery.toLowerCase()))
+                    final busStudentsList = provider.students!
+                        .where((students) => students.user.name
+                            .toLowerCase()
+                            .contains(provider.searchQuery.toLowerCase()))
                         .toList();
                     return RefreshIndicator(
                       onRefresh: provider.fetchBusStudents,
@@ -144,7 +147,7 @@ class BusStudentsScreen extends StatelessWidget {
                         itemCount: busStudentsList.length,
                         itemBuilder: (context, index) {
                           final student = busStudentsList[index];
-                      
+
                           return Card(
                             color: cPrimaryColor,
                             child: GestureDetector(
@@ -160,6 +163,7 @@ class BusStudentsScreen extends StatelessWidget {
                                 leading: CircleAvatar(
                                   backgroundColor: cSecondaryColor,
                                   child: Text(
+                                    student.user.gender,
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                     ),

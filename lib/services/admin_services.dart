@@ -3,12 +3,12 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:student_management/helper/readandset_token.dart';
 
-class LoginServices {
+class AdminLoginServices {
   final Dio dio = Dio();
   Future<void> getToken(String userName, String password) async {
     try {
       String apiUrl =
-          'https://school-management-system-xbpl.onrender.com/teacher/login/';
+          'https://student-management-system-eojv.onrender.com/admins/login/';
 
       final Map<String, dynamic> requestData = {
         "username": userName,
