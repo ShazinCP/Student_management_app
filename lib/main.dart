@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:student_management/controller/admin_provider.dart';
 import 'package:student_management/controller/bus_studentsprovider.dart';
 import 'package:student_management/controller/class_studentsprovider.dart';
+import 'package:student_management/controller/classroomlists_provider.dart';
 import 'package:student_management/controller/login_provider.dart';
 import 'package:student_management/controller/paymentdetails_provider.dart';
 import 'package:student_management/controller/studentinfo_provider.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => LoginProvider()),
         ChangeNotifierProvider(create: (context) => StudentInfoProvider()),
         ChangeNotifierProvider(create: (context) => AdminLoginProvider()),
+        ChangeNotifierProvider(create: (context) => ClassroomListsProvider()),
       ],
       child: const MaterialApp(
         title: 'Student Management',

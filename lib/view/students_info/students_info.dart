@@ -4,8 +4,8 @@ import 'package:shimmer/shimmer.dart';
 import 'package:student_management/constants/sizedboxes.dart';
 import 'package:student_management/controller/studentinfo_provider.dart';
 import 'package:student_management/helper/colors.dart';
-import 'package:student_management/view/teacher_view/paymentDetails/payment_details_screen.dart';
-import 'package:student_management/view/teacher_view/students_info/widgets/busdetails_widget.dart';
+import 'package:student_management/view/paymentDetails/payment_details_screen.dart';
+import 'package:student_management/view/students_info/widgets/busdetails_widget.dart';
 import 'package:student_management/widgets/uppercase.dart';
 
 class StudentsInfoScreen extends StatelessWidget {

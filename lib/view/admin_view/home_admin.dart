@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:student_management/controller/classroomlists_provider.dart';
 import 'package:student_management/helper/colors.dart';
+import 'package:student_management/model/classroomlist_model.dart';
 import 'package:student_management/view/admin_view/classroom_admin.dart';
 import 'package:student_management/view/teacher_view/profile_screen/profile_screen.dart';
 
 class AdminHomeScreen extends StatefulWidget {
-
   final String userName;
   const AdminHomeScreen({super.key, required this.userName});
 
@@ -13,26 +15,6 @@ class AdminHomeScreen extends StatefulWidget {
 }
 
 class _AdminHomeScreenState extends State<AdminHomeScreen> {
-  final List<String> classes = [
-    '10 A',
-    '10 B',
-    '10 C',
-    '10 D',
-    '10 E',
-    '10 F',
-    '10 G',
-    '10 H',
-    '10 I',
-    '10 J',
-    '10 K',
-    '10 L',
-    '10 M',
-    '10 N',
-    '10 O',
-    '10 P',
-    '10 Q'
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -124,17 +106,25 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             ),
           ),
           Expanded(
-            child: GridView.builder(
-              padding: const EdgeInsets.all(8.0),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                crossAxisSpacing: 8.0,
-                mainAxisSpacing: 8.0,
-                childAspectRatio: 1.2,
-              ),
-              itemCount: classes.length,
-              itemBuilder: (context, index) {
-                return buildClassCard(classes[index]);
+            child: Consumer<ClassroomListsProvider>(
+              builder: (context, provider, child) {
+                List<ClassroomLists>? classes = provider.classrooms;
+                if (classes == null) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                return GridView.builder(
+                  padding: const EdgeInsets.all(8.0),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 8.0,
+                    mainAxisSpacing: 8.0,
+                    childAspectRatio: 1.2,
+                  ),
+                  itemCount: classes.length,
+                  itemBuilder: (context, index) {
+                    return buildClassCard(classes[index]);
+                  },
+                );
               },
             ),
           ),
@@ -165,13 +155,18 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     );
   }
 
-  Widget buildClassCard(String className) {
+  Widget buildClassCard(ClassroomLists classroom) {
     return GestureDetector(
       onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => AdminClassrooms(),
-          )),
+        context,
+        MaterialPageRoute(
+          builder: (context) => AdminClassrooms(
+            className: classroom.name,
+            division: classroom.division,
+            students: classroom.students,
+          ),
+        ),
+      ),
       child: Card(
         color: cPrimaryColor,
         elevation: 4.0,
@@ -188,11 +183,12 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                 height: 35,
                 width: 56,
                 decoration: const BoxDecoration(
-                    color: cWhiteColor2,
-                    borderRadius: BorderRadius.all(Radius.circular(5))),
+                  color: cWhiteColor2,
+                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                ),
                 child: Center(
                   child: Text(
-                    className,
+                    '${classroom.name}${classroom.division}',
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w800,
@@ -201,16 +197,16 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                 ),
               ),
               const SizedBox(height: 4.2),
-              const Text(
-                'Students: 60',
-                style: TextStyle(
+              Text(
+                'Students: ${classroom.students.length}',
+                style: const TextStyle(
                   fontSize: 9,
                   color: cWhiteColor,
                 ),
               ),
-              const Text(
-                'Total seats: 60',
-                style: TextStyle(
+              Text(
+                'Total seats: ${classroom.capacity}',
+                style: const TextStyle(
                   fontSize: 6.5,
                   color: cGreyColor2,
                 ),

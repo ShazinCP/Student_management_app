@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:student_management/view/admin_view/home_admin.dart';
 import 'package:student_management/view/login_screen/login_screen.dart';
-import 'package:student_management/view/teacher_view/home_screen/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -46,8 +46,11 @@ class _SplashScreenState extends State<SplashScreen> {
     if (userLoggedIn == null || userLoggedIn.isEmpty) {
       gotologin();
     } else {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (ctx) => HomeScreen(userName: username ?? 'User')),
+      // Navigator.of(context).pushReplacement(
+      //   MaterialPageRoute(builder: (ctx) => HomeScreen(userName: username ?? 'User')),
+      // );
+       Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (ctx) => AdminHomeScreen(userName: username ?? 'User')),
       );
     }
   }

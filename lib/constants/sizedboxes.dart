@@ -18,3 +18,5 @@ const cWidth6 = SizedBox(width:6);
 const cWidth7 = SizedBox(width:7);
 const cWidth10 = SizedBox(width:10);
 const cWidth15 = SizedBox(width:15);
+const cWidth48 = SizedBox(width:48);
+

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:student_management/services/login_services.dart';
+import 'package:student_management/services/admin_services.dart';
 
 class AdminLoginProvider extends ChangeNotifier {
-  TextEditingController usernameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  TextEditingController adminUsernameController = TextEditingController();
+  TextEditingController adminPasswordController = TextEditingController();
 
   //-------------post Login------------------
 
-  LoginServices adminLoginServices = LoginServices();
+  AdminLoginServices adminLoginServices = AdminLoginServices();
   Future<void> loginAndGetToken() async {
     await adminLoginServices.getToken(
-        usernameController.text, passwordController.text);
+        adminUsernameController.text, adminPasswordController.text);
     notifyListeners();
   }
 }

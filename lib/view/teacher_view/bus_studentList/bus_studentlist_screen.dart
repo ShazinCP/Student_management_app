@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:student_management/constants/sizedboxes.dart';
 import 'package:student_management/controller/bus_studentsprovider.dart';
 import 'package:student_management/helper/colors.dart';
-import 'package:student_management/view/teacher_view/students_info/students_info.dart';
+import 'package:student_management/view/students_info/students_info.dart';
 import 'package:student_management/widgets/lists_shimmer_effect.dart';
 
 class BusStudentsScreen extends StatelessWidget {

@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:student_management/constants/sizedboxes.dart';
-import 'package:student_management/controller/login_provider.dart';
+import 'package:student_management/controller/admin_provider.dart';
 import 'package:student_management/helper/colors.dart';
 import 'package:student_management/helper/readandset_token.dart';
+import 'package:student_management/view/admin_view/home_admin.dart';
 import 'package:student_management/view/login_screen/widgets/textform_widget.dart';
-import 'package:student_management/view/teacher_view/home_screen/home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -16,7 +16,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final loginProvider = Provider.of<LoginProvider>(context);
+    final loginProvider = Provider.of<AdminLoginProvider>(context);
     final size = MediaQuery.of(context).size;
 
     return SafeArea(
@@ -60,7 +60,7 @@ class LoginScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       Loginfield(
-                        controller: loginProvider.usernameController,
+                        controller: loginProvider.adminUsernameController,
                         hintText: "userame....",
                         validator: (value) {
                           if (value!.isEmpty) {
@@ -72,7 +72,7 @@ class LoginScreen extends StatelessWidget {
                       ),
                       cHeight20,
                       Loginfield(
-                          controller: loginProvider.passwordController,
+                          controller: loginProvider.adminPasswordController,
                           hintText: "password...",
                           validator: (value) {
                             if (value!.isEmpty) {
@@ -96,7 +96,7 @@ class LoginScreen extends StatelessWidget {
                         ),
                     ],
                     borderRadius: BorderRadius.circular(
-                        8), // Match the button's shape if needed
+                        8),
                   ),
                   child: CupertinoButton(
                     onPressed: () async {
@@ -106,13 +106,13 @@ class LoginScreen extends StatelessWidget {
                         if (token != null && token.isNotEmpty) {
                           // Store the username in shared preferences
                           final sharedPref = await SharedPreferences.getInstance();
-                          await sharedPref.setString('username', loginProvider.usernameController.text);
+                          await sharedPref.setString('username', loginProvider.adminUsernameController.text);
         
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => HomeScreen(
-                                userName: loginProvider.usernameController.text,
+                              builder: (context) => AdminHomeScreen(
+                                userName: loginProvider.adminUsernameController.text,
                               ),
                             ),
                           );
