@@ -1,9 +1,8 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:student_management/view/admin_view/home_admin.dart';
-import 'package:student_management/view/login_screen/login_screen.dart';
+import 'package:student_management/view/auth/login_screen/login_screen.dart';
+import 'package:student_management/view/teacher_view/home_screen/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -15,8 +14,8 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    checkUserLoggedIn();
     super.initState();
+    checkUserLoggedIn();
   }
 
   @override
@@ -28,30 +27,46 @@ class _SplashScreenState extends State<SplashScreen> {
         height: double.infinity,
         child: Image.asset(
           'assets/splash_page/splash.gif',
+          fit: BoxFit.cover,
         ),
       ),
     );
-  }
-
-  Future<void> gotologin() async {
-    await Future.delayed(const Duration(seconds: 4));
-    Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (ctx) => LoginScreen()));
   }
 
   Future<void> checkUserLoggedIn() async {
     final sharedPref = await SharedPreferences.getInstance();
     final userLoggedIn = sharedPref.getString("accessToken");
     final username = sharedPref.getString("username");
+    final role = sharedPref.getString("role");
+
     if (userLoggedIn == null || userLoggedIn.isEmpty) {
-      gotologin();
+      navigateToLogin();
     } else {
-      // Navigator.of(context).pushReplacement(
-      //   MaterialPageRoute(builder: (ctx) => HomeScreen(userName: username ?? 'User')),
-      // );
-       Navigator.of(context).pushReplacement(
+      navigateToHomeScreen(role, username);
+    }
+  }
+
+  Future<void> navigateToLogin() async {
+    await Future.delayed(const Duration(seconds: 4));
+    if (!mounted) return;
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (ctx) =>  LoginScreen()),
+    );
+  }
+
+  void navigateToHomeScreen(String? role, String? username) {
+    if (!mounted) return;
+
+    if (role == 'admin') {
+      Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (ctx) => AdminHomeScreen(userName: username ?? 'User')),
       );
+    } else if (role == 'teacher') {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (ctx) => TeacherHomeScreen(userName: username ?? 'User')),
+      );
+    } else {
+      navigateToLogin();
     }
   }
 }

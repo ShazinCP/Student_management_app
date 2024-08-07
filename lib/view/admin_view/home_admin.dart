@@ -1,9 +1,14 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:student_management/controller/classroomlists_provider.dart';
+import 'package:student_management/controller/login_provider.dart';
 import 'package:student_management/helper/colors.dart';
+import 'package:student_management/helper/readandset_token.dart';
 import 'package:student_management/model/classroomlist_model.dart';
 import 'package:student_management/view/admin_view/classroom_admin.dart';
+import 'package:student_management/view/auth/login_screen/login_screen.dart';
 import 'package:student_management/view/teacher_view/profile_screen/profile_screen.dart';
 
 class AdminHomeScreen extends StatefulWidget {
@@ -32,7 +37,6 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
       ),
       drawer: Drawer(
         child: ListView(
-          // Add your drawer menu items here
           padding: EdgeInsets.zero,
           children: [
             const DrawerHeader(
@@ -48,37 +52,35 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
               title: const Text('Profile'),
               leading: const Icon(Icons.account_circle),
               onTap: () {
-                // Handle profile navigation
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const ProfileScreen(),
-                    )); // Close drawer
+                    ));
               },
             ),
             ListTile(
               title: const Text('Settings'),
               leading: const Icon(Icons.settings),
               onTap: () {
-                // Handle settings navigation
-                Navigator.pop(context); // Close drawer
+                Navigator.pop(context);
               },
             ),
             ListTile(
                 title: const Text('Logout'),
                 leading: const Icon(Icons.logout),
                 onTap: () async {
-                  // await clearToken();
-                  // Provider.of<LoginProvider>(context, listen: false)
-                  //     .passwordController
-                  //     .clear();
-                  // Provider.of<LoginProvider>(context, listen: false)
-                  //     .usernameController
-                  //     .clear();
-                  // Navigator.pushReplacement(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => LoginScreen()),
-                  // );
+                  await clearToken();
+                  Provider.of<LoginProvider>(context, listen: false)
+                      .passwordController
+                      .clear();
+                  Provider.of<LoginProvider>(context, listen: false)
+                      .usernameController
+                      .clear();
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
                 }),
           ],
         ),

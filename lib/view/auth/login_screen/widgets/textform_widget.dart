@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:student_management/helper/colors.dart';
 
-class Loginfield extends StatelessWidget {
+class LoginField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final String? Function(String?)? validator;
-  const Loginfield(
+  const LoginField(
       {super.key,
       required this.controller,
       required this.hintText,

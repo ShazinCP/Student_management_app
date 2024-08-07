@@ -5,10 +5,10 @@ import 'package:student_management/helper/readandset_token.dart';
 
 class LoginServices {
   final Dio dio = Dio();
-  Future<void> getToken(String userName, String password) async {
+
+  Future<Map<String, dynamic>> getToken(String userName, String password) async {
     try {
-      String apiUrl =
-          'https://school-management-system-xbpl.onrender.com/teacher/login/';
+      String apiUrl = 'https://student-management-system-eojv.onrender.com/admins/login/';
 
       final Map<String, dynamic> requestData = {
         "username": userName,
@@ -18,17 +18,27 @@ class LoginServices {
       Response response = await dio.post(apiUrl, data: requestData);
 
       if (response.statusCode == 200) {
-        print(response.statusCode);
+        log("Response data: ${response.data}");
+
         String token = response.data["token"]["access"];
         log(token);
         saveToSharedPreferences(token);
+
+        String role = response.data["token"]["role"] ?? '';
+
+        return {
+          'token': token,
+          'role': role,
+        };
       } else {
-        print('response: ${response.statusCode}, ${response.statusMessage}');
+        log('response: ${response.statusCode}, ${response.statusMessage}');
+        return {};
       }
     } on DioException catch (e) {
       if (e.response != null) {
         log("${e.response?.data}");
       }
+      return {};
     }
   }
 }
