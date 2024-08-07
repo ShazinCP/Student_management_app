@@ -4,7 +4,7 @@ import 'package:student_management/constants/sizedboxes.dart';
 import 'package:student_management/controller/login_provider.dart';
 import 'package:student_management/helper/colors.dart';
 import 'package:student_management/helper/readandset_token.dart';
-import 'package:student_management/view/login_screen/login_screen.dart';
+import 'package:student_management/view/auth/login_screen/login_screen.dart';
 import 'package:student_management/view/teacher_view/bus_studentList/bus_studentlist_screen.dart';
 import 'package:student_management/view/teacher_view/class_studentlist/class_studentlist_screen.dart';
 import 'package:student_management/view/teacher_view/home_screen/widgets/home_center_widget.dart';
@@ -12,9 +12,9 @@ import 'package:student_management/view/teacher_view/home_screen/widgets/home_to
 import 'package:student_management/view/teacher_view/profile_screen/profile_screen.dart';
 import 'package:student_management/widgets/uppercase.dart';
 
-class HomeScreen extends StatelessWidget {
+class TeacherHomeScreen extends StatelessWidget {
   final String userName;
-  const HomeScreen({super.key, required this.userName});
+  const TeacherHomeScreen({super.key, required this.userName});
   @override
   Widget build(BuildContext context) {
     // final Size size = MediaQuery.of(context).size;
