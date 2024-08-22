@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:student_management/constants/sizedboxes.dart';
 import 'package:student_management/controller/bus_studentsprovider.dart';
 import 'package:student_management/helper/colors.dart';
-import 'package:student_management/view/students_info/students_info.dart';
+import 'package:student_management/view/common/students_info/students_info.dart';
 import 'package:student_management/widgets/lists_shimmer_effect.dart';
 
 class BusStudentsScreen extends StatelessWidget {
@@ -132,7 +132,8 @@ class BusStudentsScreen extends StatelessWidget {
                   } else if (provider.errorMessage != null) {
                     return Center(
                         child: Text('Error: ${provider.errorMessage}'));
-                  } else if (provider.students == null) {
+                  } else if (provider.students == null ||
+                      provider.students!.isEmpty) {
                     return const Center(child: Text('No data available'));
                   } else {
                     final busStudentsList = provider.students!
@@ -155,16 +156,17 @@ class BusStudentsScreen extends StatelessWidget {
                                   Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => StudentsInfoScreen(
                                   name: student.user.name,
-                                  gender: student.user.gender,
-                                  id: student.user.id,
+                                  admissionNo: student.admissionNo,
+                                  id: student.id,
                                 ),
                               )),
                               child: ListTile(
                                 leading: CircleAvatar(
                                   backgroundColor: cSecondaryColor,
                                   child: Text(
-                                    student.user.gender,
+                                    student.admissionNo,
                                     style: const TextStyle(
+                                      fontSize: 8.5,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),

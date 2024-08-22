@@ -9,7 +9,8 @@ class StudentInfoServices {
   Future<StudentInfoModel?> fetchStudentInfo(int id) async {
     String? token = await readToken();
     print("Token: $token");
-    final url = 'https://school-management-system-xbpl.onrender.com/teacher/busStudent/$id/';
+    log("id: $id");
+    final url = 'https://student-management-system-eojv.onrender.com/teacher/busStudent/$id/';
     try {
       final response = await _dio.get(
         url,

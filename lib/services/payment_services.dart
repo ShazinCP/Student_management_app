@@ -3,7 +3,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:student_management/helper/readandset_token.dart';
-import 'package:student_management/model/bus_payments_model.dart';
+import 'package:student_management/model/payments_model.dart';
 
 class BusPaymentServices {
   final Dio _dio = Dio();
@@ -12,7 +12,7 @@ class BusPaymentServices {
     String? token = await readToken();
 
     const url =
-        "https://school-management-system-xbpl.onrender.com/teacher/payment/";
+        "https://student-management-system-eojv.onrender.com/teacher/payment/";
     try {
       final response = await _dio.post(
         url,
@@ -43,7 +43,7 @@ class BusPaymentServices {
     String? token = await readToken();
     print("Token: $token");
     final url =
-        'https://school-management-system-xbpl.onrender.com/teacher/transactions/?user_id=$studentId';
+        'https://student-management-system-eojv.onrender.com/teacher/transactions/?user_id=$studentId';
     try {
       final response = await _dio.get(
         url,
@@ -74,7 +74,7 @@ class BusPaymentServices {
   Future<void> deleteTransaction(transactionId) async {
     String? token = await readToken();
     final url =
-        'https://school-management-system-xbpl.onrender.com/teacher/transactions/$transactionId/';
+        'https://student-management-system-eojv.onrender.com/teacher/transactions/$transactionId/';
     final response = await _dio.delete(url,
         options: Options(
           headers: {
@@ -94,7 +94,7 @@ class BusPaymentServices {
     String? token = await readToken();
     try {
       final url =
-          "https://school-management-system-xbpl.onrender.com/teacher/transactions/$transactionId/";
+          "https://student-management-system-eojv.onrender.com/teacher/transactions/$transactionId/";
       final response = await _dio.put(
         url,
         data: jsonEncode(requestData),

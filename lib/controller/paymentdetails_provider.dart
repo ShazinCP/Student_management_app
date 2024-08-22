@@ -1,34 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:student_management/model/bus_payments_model.dart';
-import 'package:student_management/services/bus_payment_services.dart';
+import 'package:student_management/model/payments_model.dart';
+import 'package:student_management/services/payment_services.dart';
 
-class BusPaymentDetailsProvider extends ChangeNotifier{
-
-TextEditingController amountController=TextEditingController();
- 
+class BusPaymentDetailsProvider extends ChangeNotifier {
+  TextEditingController amountController = TextEditingController();
 
   final formKey = GlobalKey<FormState>();
 
   String? selectedItem;
 
-
-  final List<String> items = [
-    'CASH',
-    'UPI'
-  ];
+  final List<String> items = ['CASH', 'UPI'];
 
   void selectedPaymentType(String value) {
     selectedItem = value;
     notifyListeners();
   }
-  
-  BusPaymentServices busPaymentServices =BusPaymentServices();
-      
 
+  BusPaymentServices busPaymentServices = BusPaymentServices();
 
- //-------------------------feaching bus payments-----------------
- BusPaymentsModel? _BusPayments;
+  //-------------------------feaching bus payments-----------------
+  BusPaymentsModel? _BusPayments;
   bool _isLoading = true;
   String? _errorMessage;
 
@@ -49,9 +41,7 @@ TextEditingController amountController=TextEditingController();
     }
   }
 
-
-
- //---------------------add peyments-----------------
+  //---------------------add peyments-----------------
   Future<void> postBusPayment(studentId) async {
     print(studentId);
     Map<String, dynamic> requestData = {
@@ -59,7 +49,7 @@ TextEditingController amountController=TextEditingController();
       "amount": amountController.text,
       "method": selectedItem
     };
-   print(requestData);
+    print(requestData);
     try {
       await busPaymentServices.postBusPayment(requestData);
       fetchBusPayments(studentId);
@@ -69,29 +59,28 @@ TextEditingController amountController=TextEditingController();
     }
   }
 
-
 //--------------------delete transaction-------------------------
-  Future<void> deleteTransaction(memberId,studentId) async {
+  Future<void> deleteTransaction(memberId, studentId) async {
     await busPaymentServices.deleteTransaction(memberId);
     fetchBusPayments(studentId);
     notifyListeners();
   }
+
 //---------------------edit bus transactions--------------------
-  Future<void> editBusTransaction(studentId,transactionId) async {
+  Future<void> editBusTransaction(studentId, transactionId) async {
     print(studentId);
     Map<String, dynamic> requestData = {
       "student": studentId,
       "amount": amountController.text,
       "method": selectedItem
     };
-   print(requestData);
+    print(requestData);
     try {
-      await busPaymentServices.editBusTransaction(transactionId,requestData);
+      await busPaymentServices.editBusTransaction(transactionId, requestData);
       fetchBusPayments(studentId);
     } catch (e) {
       print('Error posting bus payment: $e');
       throw Exception('Update failed: $e');
     }
   }
-
 }

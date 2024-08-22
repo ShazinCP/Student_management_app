@@ -8,14 +8,18 @@ class ClassroomListsProvider with ChangeNotifier {
   }
 
   TextEditingController adminSearchController = TextEditingController();
-
+  
   List<ClassroomLists>? _classrooms;
-  bool _isLoading = false;
-  String? _errorMessage;
-
   List<ClassroomLists>? get classrooms => _classrooms;
+
+  bool _isLoading = false;
   bool get isLoading => _isLoading;
+
+  String? _errorMessage;
   String? get errorMessage => _errorMessage;
+
+  String? selectedClassLevel;
+
 
   Future<void> fetchClassrooms() async {
     _isLoading = true;

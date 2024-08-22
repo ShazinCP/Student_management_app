@@ -4,20 +4,20 @@ import 'package:shimmer/shimmer.dart';
 import 'package:student_management/constants/sizedboxes.dart';
 import 'package:student_management/controller/studentinfo_provider.dart';
 import 'package:student_management/helper/colors.dart';
-import 'package:student_management/view/paymentDetails/payment_details_screen.dart';
-import 'package:student_management/view/students_info/widgets/busdetails_widget.dart';
+import 'package:student_management/view/common/paymentDetails/payment_details_screen.dart';
+import 'package:student_management/view/common/students_info/widgets/busdetails_widget.dart';
 import 'package:student_management/widgets/uppercase.dart';
 
 class StudentsInfoScreen extends StatelessWidget {
   final int id;
   final String name;
-  final String gender;
+  final String admissionNo;
 
   const StudentsInfoScreen({
     super.key,
     required this.id,
     required this.name,
-    required this.gender,
+    required this.admissionNo,
   });
 
   @override
@@ -31,7 +31,8 @@ class StudentsInfoScreen extends StatelessWidget {
       backgroundColor: cBackgroundColor,
       appBar: AppBar(
         backgroundColor: cPrimaryColor,
-        automaticallyImplyLeading: false,
+        // automaticallyImplyLeading: false,
+        iconTheme: const IconThemeData(color: cWhiteColor),
         title: Row(
           children: [
             Padding(
@@ -40,8 +41,9 @@ class StudentsInfoScreen extends StatelessWidget {
                 radius: 18,
                 backgroundColor: cSecondaryColor,
                 child: Text(
-                  gender,
+                  admissionNo,
                   style: TextStyle(
+                    fontSize: 8.5,
                     fontWeight: FontWeight.bold,
                     color: Colors.grey[700],
                   ),
@@ -50,7 +52,7 @@ class StudentsInfoScreen extends StatelessWidget {
             ),
             cHeight10,
             Text(
-              name,
+              name.capitalize(),
               style: const TextStyle(color: cWhiteColor),
             ),
           ],
@@ -153,44 +155,44 @@ class StudentsInfoScreen extends StatelessWidget {
                         thickness: 2,
                       ),
                     ),
-                    SizedBox(
-                      height: screenHeight * 0.45,
-                      width: double.infinity,
-                      child: ListView.builder(
-                        itemCount: provider.busPoints.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 5),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: cPrimaryColor,
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: cBlackColor.withOpacity(0.5),
-                                    spreadRadius: 2,
-                                    blurRadius: 2,
-                                    offset: const Offset(0, 2),
-                                  ),
-                                ],
-                              ),
-                              child: ListTile(
-                                title: Center(
-                                  child: Text(
-                                    provider.busPoints[index].capitalize(),
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
-                                      color: cWhiteColor,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
+                    // SizedBox(
+                    //   height: screenHeight * 0.45,
+                    //   width: double.infinity,
+                    //   child: ListView.builder(
+                    //     itemCount: provider.busPoints.length,
+                    //     itemBuilder: (context, index) {
+                    //       return Padding(
+                    //         padding: const EdgeInsets.symmetric(vertical: 5),
+                    //         child: Container(
+                    //           decoration: BoxDecoration(
+                    //             color: cPrimaryColor,
+                    //             borderRadius: BorderRadius.circular(10),
+                    //             boxShadow: [
+                    //               BoxShadow(
+                    //                 color: cBlackColor.withOpacity(0.5),
+                    //                 spreadRadius: 2,
+                    //                 blurRadius: 2,
+                    //                 offset: const Offset(0, 2),
+                    //               ),
+                    //             ],
+                    //           ),
+                              // child: ListTile(
+                              //   title: Center(
+                              //     child: Text(
+                              //       provider.busPoints[index].capitalize(),
+                              //       style: const TextStyle(
+                              //         fontWeight: FontWeight.bold,
+                              //         fontSize: 18,
+                              //         color: cWhiteColor,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                    //         ),
+                    //       );
+                    //     },
+                    //   ),
+                    // ),
                     // SizedBox(height: screenHeight * 0.03),
                     Center(
                       child: SizedBox(
@@ -203,7 +205,7 @@ class StudentsInfoScreen extends StatelessWidget {
                               MaterialPageRoute(
                                 builder: (context) => PaymentDetailsScreen(
                                   studentId: student.student.id,
-                                  gender: gender,
+                                  admissionNo: admissionNo,
                                   name: name,
                                 ),
                               ),
@@ -217,7 +219,7 @@ class StudentsInfoScreen extends StatelessWidget {
                           ),
                           child: const Text(
                             'Show Payment',
-                            style: TextStyle(fontSize: 20, color: cWhiteColor),
+                            style: TextStyle(fontSize: 16, color: cWhiteColor),
                           ),
                         ),
                       ),

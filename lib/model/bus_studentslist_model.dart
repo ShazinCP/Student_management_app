@@ -1,21 +1,25 @@
 class BusStudentsListModel {
+  int id;
     String admissionNo;
     User user;
     int classRoom;
 
     BusStudentsListModel({
+      required this.id,
         required this.admissionNo,
         required this.user,
         required this.classRoom,
     });
 
     factory BusStudentsListModel.fromJson(Map<String, dynamic> json) => BusStudentsListModel(
+        id: json["id"],
         admissionNo: json["admission_no"],
         user: User.fromJson(json["user"]),
         classRoom: json["classRoom"],
     );
 
     Map<String, dynamic> toJson() => {
+      "id": id,
         "admission_no": admissionNo,
         "user": user.toJson(),
         "classRoom": classRoom,

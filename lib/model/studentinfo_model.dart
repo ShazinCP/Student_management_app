@@ -104,7 +104,7 @@ class Route {
   final int routeNo;
   final String fromLocation;
   final String toLocation;
-  final List<BusPoint> busPoints;
+  // final List<BusPoint> busPoints;
 
   Route({
     required this.id,
@@ -112,13 +112,13 @@ class Route {
     required this.routeNo,
     required this.fromLocation,
     required this.toLocation,
-    required this.busPoints,
+    // required this.busPoints,
   });
 
   factory Route.fromJson(Map<String, dynamic> json) {
-    var busPointsFromJson = json['bus_points'] as List;
-    List<BusPoint> busPointsList =
-        busPointsFromJson.map((i) => BusPoint.fromJson(i)).toList();
+    // var busPointsFromJson = json['bus_points'] as List;
+    // List<BusPoint> busPointsList =
+    //     busPointsFromJson.map((i) => BusPoint.fromJson(i)).toList();
 
     return Route(
       id: json['id'],
@@ -126,7 +126,7 @@ class Route {
       routeNo: json['route_no'],
       fromLocation: json['from_location'],
       toLocation: json['to_location'],
-      busPoints: busPointsList,
+      // busPoints: busPointsList,
     );
   }
 
@@ -137,7 +137,7 @@ class Route {
       'route_no': routeNo,
       'from_location': fromLocation,
       'to_location': toLocation,
-      'bus_points': busPoints.map((busPoint) => busPoint.toJson()).toList(),
+      // 'bus_points': busPoints.map((busPoint) => busPoint.toJson()).toList(),
     };
   }
 }

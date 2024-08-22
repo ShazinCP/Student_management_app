@@ -4,12 +4,14 @@ import 'package:provider/provider.dart';
 import 'package:student_management/constants/sizedboxes.dart';
 import 'package:student_management/controller/classroomlists_provider.dart';
 import 'package:student_management/helper/colors.dart';
-import 'package:student_management/view/students_info/students_info.dart';
+import 'package:student_management/model/classroomlist_model.dart';
+import 'package:student_management/view/common/students_info/students_info.dart';
+import 'package:student_management/widgets/uppercase.dart';
 
 class AdminClassrooms extends StatelessWidget {
   final String className;
   final String division;
-  final List<dynamic> students;
+  final List<Student> students;
 
   const AdminClassrooms({
     super.key,
@@ -136,6 +138,20 @@ class AdminClassrooms extends StatelessWidget {
               color: cBlackColor,
             ),
           ),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+            child: Row(
+              children: [
+                Text(
+                  'Class teacher: Seenath',
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      color: cBlackColor),
+                ),
+              ],
+            ),
+          ),
           Consumer<ClassroomListsProvider>(builder: (context, provider, child) {
             if (provider.isLoading) {
               return const Center(child: CircularProgressIndicator());
@@ -144,7 +160,7 @@ class AdminClassrooms extends StatelessWidget {
             } else if (students.isEmpty) {
               return const Center(
                 child: Text(
-                  'No data available',
+                  'No students found',
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: 13,
@@ -153,10 +169,14 @@ class AdminClassrooms extends StatelessWidget {
               );
             } else {
               final classStudentsList = students
-                  .where((student) => student.name
+                  .where((student) => student.user.name
                       .toLowerCase()
                       .contains(provider.adminSearchQuery.toLowerCase()))
                   .toList();
+
+              if (classStudentsList.isEmpty) {
+                return const Center(child: Text("No student found"));
+              }
               return Expanded(
                 child: ListView.builder(
                   itemCount: classStudentsList.length,
@@ -171,10 +191,11 @@ class AdminClassrooms extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const StudentsInfoScreen(
-                                id: 1,
-                                name: 'Muhammed Shamil',
-                                gender: 'M',
+                              builder: (context) => StudentsInfoScreen(
+                                id: classStudentsList[index].id,
+                                name: classStudentsList[index].user.name,
+                                admissionNo:
+                                    classStudentsList[index].admissionNo,
                               ),
                             ),
                           );
@@ -183,17 +204,18 @@ class AdminClassrooms extends StatelessWidget {
                           color: cPrimaryColor,
                           child: ListTile(
                             leading: CircleAvatar(
-                              backgroundColor: cWhiteColor,
+                              backgroundColor: cSecondaryColor,
                               child: Text(
-                                (index + 1).toString(),
+                                classStudentsList[index].admissionNo,
                                 style: const TextStyle(
+                                  fontSize: 8.5,
                                   color: cBlackColor,
-                                  fontWeight: FontWeight.w800,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
                             title: Text(
-                              classStudentsList[index].name,
+                              classStudentsList[index].user.name.capitalize(),
                               style: const TextStyle(
                                 color: cWhiteColor,
                                 fontSize: 16,
