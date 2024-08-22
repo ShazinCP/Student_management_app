@@ -8,7 +8,7 @@ class BusStudentsListServices {
   Future<List<BusStudentsListModel>?> fetchBusStudentsList() async {
     String? token = await readToken();
     print("Token: ${token}");
-    const url ='https://school-management-system-xbpl.onrender.com/teacher/students/get_bus_students/';
+    const url ='https://student-management-system-eojv.onrender.com/teacher/students/get_bus_students/';
     try {
       final response = await _dio.get(
         url,

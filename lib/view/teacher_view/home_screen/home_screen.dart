@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:student_management/constants/sizedboxes.dart';
@@ -22,21 +24,38 @@ class TeacherHomeScreen extends StatelessWidget {
       backgroundColor: cSecondaryColor,
       appBar: AppBar(
         backgroundColor: cSecondaryColor,
-        title: const Text('Student Management'),
-        centerTitle: true,
+        title: const Text(
+          'KKMHSS CHEAKODE',
+          style: TextStyle(
+            fontWeight: FontWeight.w700,
+            fontSize: 16,
+          ),
+        ),
       ),
       drawer: Drawer(
+        backgroundColor: cWhiteColor,
         child: ListView(
-          // Add your drawer menu items here
           padding: EdgeInsets.zero,
           children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: cPrimaryColor,
+             DrawerHeader(
+              decoration: const BoxDecoration(
+                color: cWhiteColor,
               ),
-              child: Text(
-                'Student Management App',
-                style: TextStyle(color: cSecondaryColor),
+              child: Column(
+                children: [
+                  const Text(
+                    'KKMHSS CHEAKODE',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16,
+                      color: Color(0xFF2d295b),
+                    ),
+                  ),
+                  Image.asset(
+                    "assets/splash_page/school_logo.png",
+                    height: 110,
+                  ),
+                ],
               ),
             ),
             ListTile(
@@ -63,17 +82,55 @@ class TeacherHomeScreen extends StatelessWidget {
                 title: const Text('Logout'),
                 leading: const Icon(Icons.logout),
                 onTap: () async {
-                  await clearToken();
-                  Provider.of<LoginProvider>(context, listen: false)
-                      .passwordController
-                      .clear();
-                  Provider.of<LoginProvider>(context, listen: false)
-                      .usernameController
-                      .clear();
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginScreen()),
-                  );
+                  bool? confirmLogout = await showDialog<bool>(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('Logout',style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),),
+                          content:
+                              const Text('Are you sure you want to logout?'),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.of(context).pop(false),
+                              child: const Text(
+                                'Cancel',
+                                style: TextStyle(
+                                  color: cPrimaryColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () => Navigator.of(context).pop(true),
+                              child: const Text(
+                                'Logout',
+                                style: TextStyle(
+                                  color: cPrimaryColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+
+                    if (confirmLogout ?? false) {
+                      await clearToken();
+                      Provider.of<LoginProvider>(context, listen: false)
+                          .passwordController
+                          .clear();
+                      Provider.of<LoginProvider>(context, listen: false)
+                          .usernameController
+                          .clear();
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginScreen()),
+                      );
+                    }
                 }),
           ],
         ),

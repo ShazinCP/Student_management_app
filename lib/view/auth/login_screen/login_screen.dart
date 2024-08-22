@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -5,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:student_management/constants/sizedboxes.dart';
 import 'package:student_management/controller/login_provider.dart';
 import 'package:student_management/helper/colors.dart';
-import 'package:student_management/view/admin_view/home_admin.dart';
+import 'package:student_management/view/admin_view/home_screen/home_admin.dart';
 import 'package:student_management/view/auth/login_screen/widgets/textform_widget.dart';
 import 'package:student_management/view/teacher_view/home_screen/home_screen.dart';
 
@@ -43,7 +45,8 @@ class LoginScreen extends StatelessWidget {
                 ),
                 cHeight20,
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 35),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 14, vertical: 35),
                   child: Column(
                     children: [
                       LoginField(
@@ -84,28 +87,45 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ],
                     borderRadius: BorderRadius.circular(8),
+                    color: cPrimaryColor,
                   ),
                   child: CupertinoButton(
-                    onPressed: () async {
-                      if (formKey.currentState!.validate()) {
-                        final loginSuccess = await loginProvider.loginAndGetToken();
-                        if (loginSuccess && context.mounted) {
-                          final sharedPref = await SharedPreferences.getInstance();
-                          final role = sharedPref.getString('role');
+                    onPressed: loginProvider.loading
+                        ? null
+                        : () async {
+                            if (formKey.currentState!.validate()) {
+                              final loginSuccess =
+                                  await loginProvider.loginAndGetToken();
+                              if (loginSuccess && context.mounted) {
+                                final sharedPref =
+                                    await SharedPreferences.getInstance();
+                                final role = sharedPref.getString('role');
 
-                          navigateBasedOnRole(context, role, loginProvider.usernameController.text);
-                        } else {
-                          showErrorSnackbar(context);
-                        }
-                      } else {
-                        print('Empty value');
-                      }
-                    },
-                    color: cPrimaryColor,
-                    child: const Text(
-                      "Login",
-                      style: TextStyle(color: Colors.white),
-                    ),
+                                navigateBasedOnRole(context, role,
+                                    loginProvider.usernameController.text);
+                              } else {
+                                showErrorSnackbar(context);
+                              }
+                            } else {
+                              print('Empty value');
+                            }
+                          },
+                    color: Colors.transparent,
+                    child: loginProvider.loading
+                        ? const SizedBox(
+                            height: 23,
+                            width: 30,
+                            child: Center(
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                                strokeWidth: 1.0,
+                              ),
+                            ),
+                          )
+                        : const Text(
+                            "Login",
+                            style: TextStyle(color: Colors.white),
+                          ),
                   ),
                 ),
               ],
@@ -116,7 +136,8 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  void navigateBasedOnRole(BuildContext context, String? role, String username) {
+  void navigateBasedOnRole(
+      BuildContext context, String? role, String username) {
     if (role == 'admin') {
       Navigator.pushReplacement(
         context,
