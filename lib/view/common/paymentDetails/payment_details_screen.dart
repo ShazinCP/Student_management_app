@@ -66,7 +66,7 @@ class _PaymentDetailsScreenState extends State<PaymentDetailsScreen> {
             ),
             cHeight10,
             Text(
-              widget.name.capitalize(),
+              ' ${widget.name.capitalize()}',
               style: const TextStyle(color: cSecondaryColor),
             ),
           ],
@@ -81,26 +81,27 @@ class _PaymentDetailsScreenState extends State<PaymentDetailsScreen> {
               return Center(child: Text(provider.errorMessage!));
             } else if (provider.BusPayments != null) {
               final transactions =
-                  provider.BusPayments!.transactions.reversed.toList();
+                  provider.BusPayments?.transactions?.reversed.toList() ?? [];
               return RefreshIndicator(
                 onRefresh: () => provider.fetchBusPayments(widget.studentId),
                 child: Column(
                   children: [
                     cHeight10,
                     SizedBox(
-                      height: screenHeight * .30,
-                      width: screenWidth,
-                      child: PaymentCounts(
-                        balanceAmount:
-                            provider.BusPayments?.balanceAmount.toString() ??
-                                "0",
-                        paidAmount:
-                            provider.BusPayments?.paidAmount.toString() ?? "0",
-                        totalAmount: provider.BusPayments?.busService.annualFees
-                                .toString() ??
-                            "0",
-                      ),
-                    ),
+                        height: screenHeight * .30,
+                        width: screenWidth,
+                        child: PaymentCounts(
+                          balanceAmount: provider.BusPayments?.balanceAmount
+                                  ?.toStringAsFixed(0) ??
+                              "0",
+                          paidAmount: provider.BusPayments?.paidAmount
+                                  ?.toStringAsFixed(0) ??
+                              "0",
+                          totalAmount: provider
+                                  .BusPayments?.busService?.annualFees
+                                  ?.toStringAsFixed(0) ??
+                              "0",
+                        )),
                     const Row(
                       children: [
                         Padding(
@@ -120,7 +121,8 @@ class _PaymentDetailsScreenState extends State<PaymentDetailsScreen> {
                       child: Container(
                         color: cWhiteColor24,
                         height: 300,
-                        child: provider.BusPayments!.transactions.isEmpty
+                        child: (provider.BusPayments?.transactions?.isEmpty ??
+                                true)
                             ? const Center(
                                 child: Text(
                                   'No transactions added',
@@ -228,7 +230,7 @@ class _PaymentDetailsScreenState extends State<PaymentDetailsScreen> {
                                         ),
                                       ),
                                       title: Text(
-                                        "₹ ${transaction.amount}",
+                                        "₹ ${provider.formatAmount(transaction.amount)}",
                                         style: const TextStyle(
                                           fontSize: 17,
                                           fontWeight: FontWeight.w600,
@@ -269,11 +271,9 @@ class _PaymentDetailsScreenState extends State<PaymentDetailsScreen> {
                                                       studentId:
                                                           widget.studentId,
                                                       amount:
-                                                          transaction.amount,
-                                                      // transactionType:
-                                                      //     transaction.method,
+                                                          '${transaction.amount}',
                                                       transactionId:
-                                                          transaction.id,
+                                                          transaction.id ?? 0,
                                                     );
                                                   },
                                                 );
@@ -290,13 +290,16 @@ class _PaymentDetailsScreenState extends State<PaymentDetailsScreen> {
                                                   builder: (context) {
                                                     return AlertDialog(
                                                       title: const Text(
-                                                          'Confirm Delete',
-                                                          style: TextStyle(fontWeight: FontWeight.w700,fontSize: 20),
-                                                          ),
+                                                        'Confirm Delete',
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w700,
+                                                            fontSize: 20),
+                                                      ),
                                                       content: const Text(
-                                                          'Are you sure you want to delete this transaction?',
-                                                          // style: TextStyle(fontWeight: FontWeight.w700),
-                                                          ),
+                                                        'Are you sure you want to delete this transaction?',
+                                                        // style: TextStyle(fontWeight: FontWeight.w700),
+                                                      ),
                                                       actions: [
                                                         TextButton(
                                                           child: const Text(
@@ -304,7 +307,9 @@ class _PaymentDetailsScreenState extends State<PaymentDetailsScreen> {
                                                             style: TextStyle(
                                                               color:
                                                                   cPrimaryColor,
-                                                                  fontWeight: FontWeight.bold,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
                                                             ),
                                                           ),
                                                           onPressed: () {
@@ -317,9 +322,10 @@ class _PaymentDetailsScreenState extends State<PaymentDetailsScreen> {
                                                           child: const Text(
                                                             'Delete',
                                                             style: TextStyle(
-                                                              color:
-                                                                  cRedColor,
-                                                                  fontWeight: FontWeight.bold,
+                                                              color: cRedColor,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
                                                             ),
                                                           ),
                                                           onPressed: () {
@@ -355,8 +361,9 @@ class _PaymentDetailsScreenState extends State<PaymentDetailsScreen> {
                                     thickness: 2,
                                   );
                                 },
-                                itemCount:
-                                    provider.BusPayments!.transactions.length,
+                                itemCount: provider
+                                        .BusPayments?.transactions?.length ??
+                                    0,
                               ),
                       ),
                     )

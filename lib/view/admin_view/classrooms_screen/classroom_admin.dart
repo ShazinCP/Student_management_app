@@ -6,17 +6,20 @@ import 'package:student_management/controller/classroomlists_provider.dart';
 import 'package:student_management/helper/colors.dart';
 import 'package:student_management/model/classroomlist_model.dart';
 import 'package:student_management/view/common/students_info/students_info.dart';
+import 'package:student_management/widgets/lists_shimmer_effect.dart';
 import 'package:student_management/widgets/uppercase.dart';
 
 class AdminClassrooms extends StatelessWidget {
   final String className;
   final String division;
+  final String classTeacher;
   final List<Student> students;
 
   const AdminClassrooms({
     super.key,
     required this.className,
     required this.division,
+    required this.classTeacher,
     required this.students,
   });
 
@@ -138,23 +141,33 @@ class AdminClassrooms extends StatelessWidget {
               color: cBlackColor,
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
             child: Row(
               children: [
-                Text(
-                  'Class teacher: Seenath',
+                const Text(
+                  'Class teacher: ',
                   style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
                       color: cBlackColor),
+                ),
+                Text(
+                  classTeacher.isNotEmpty
+                      ? classTeacher.capitalize()
+                      : 'No teacher found',
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700,
+                    color: cBlackColor,
+                  ),
                 ),
               ],
             ),
           ),
           Consumer<ClassroomListsProvider>(builder: (context, provider, child) {
             if (provider.isLoading) {
-              return const Center(child: CircularProgressIndicator());
+              return buildListShimmerEffect();
             } else if (provider.errorMessage != null) {
               return Center(child: Text('Error: ${provider.errorMessage}'));
             } else if (students.isEmpty) {

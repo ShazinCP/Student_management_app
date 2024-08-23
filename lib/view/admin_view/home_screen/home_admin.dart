@@ -3,6 +3,7 @@
 import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:student_management/constants/sizedboxes.dart';
 import 'package:student_management/controller/classroomlists_provider.dart';
 import 'package:student_management/controller/login_provider.dart';
@@ -37,7 +38,7 @@ class AdminHomeScreen extends StatelessWidget {
           ),
         ),
         drawer: Drawer(
-          // backgroundColor: const Color.fromARGB(255, 221, 226, 253),
+          backgroundColor: cSecondaryColor,
           child: ListView(
             padding: EdgeInsets.zero,
             children: [
@@ -62,120 +63,105 @@ class AdminHomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Card(
-                color: cPrimaryColor,
-                child: ListTile(
-                  title: const Text(
-                    'Profile',
-                    style: TextStyle(
-                      color: cWhiteColor,
-                      fontWeight: FontWeight.w600,
-                    ),
+              ListTile(
+                title: const Text(
+                  'Profile',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
                   ),
-                  leading: const Icon(
-                    Icons.account_circle,
-                    color: cWhiteColor,
-                  ),
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const ProfileScreen(),
-                        ));
-                  },
                 ),
+                leading: const Icon(
+                  Icons.account_circle,
+                ),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ProfileScreen(),
+                      ));
+                },
               ),
               cHeight5,
-              Card(
-                color: cPrimaryColor,
-                child: ListTile(
-                  title: const Text(
-                    'Settings',
-                    style: TextStyle(
-                      color: cWhiteColor,
-                      fontWeight: FontWeight.w600,
-                    ),
+              ListTile(
+                title: const Text(
+                  'Settings',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
                   ),
-                  leading: const Icon(
-                    Icons.settings,
-                    color: cWhiteColor,
-                  ),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
                 ),
+                leading: const Icon(
+                  Icons.settings,
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                },
               ),
               cHeight5,
-              Card(
-                color: cPrimaryColor,
-                child: ListTile(
-                  title: const Text(
-                    'Logout',
-                    style: TextStyle(
-                      color: cWhiteColor,
-                      fontWeight: FontWeight.w600,
-                    ),
+              ListTile(
+                title: const Text(
+                  'Logout',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
                   ),
-                  leading: const Icon(
-                    Icons.logout,
-                    color: cWhiteColor,
-                  ),
-                  onTap: () async {
-                    // Show confirmation dialog
-                    bool? confirmLogout = await showDialog<bool>(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: const Text(
-                            'Logout',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
+                ),
+                leading: const Icon(
+                  Icons.logout,
+                ),
+                onTap: () async {
+                  // Show confirmation dialog
+                  bool? confirmLogout = await showDialog<bool>(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text(
+                          'Logout',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                        content:
+                            const Text('Are you sure you want to logout?'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(false),
+                            child: const Text(
+                              'Cancel',
+                              style: TextStyle(
+                                color: cPrimaryColor,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
-                          content:
-                              const Text('Are you sure you want to logout?'),
-                          actions: <Widget>[
-                            TextButton(
-                              onPressed: () => Navigator.of(context).pop(false),
-                              child: const Text(
-                                'Cancel',
-                                style: TextStyle(
-                                  color: cPrimaryColor,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(true),
+                            child: const Text(
+                              'Logout',
+                              style: TextStyle(
+                                color: cPrimaryColor,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                            TextButton(
-                              onPressed: () => Navigator.of(context).pop(true),
-                              child: const Text(
-                                'Logout',
-                                style: TextStyle(
-                                  color: cPrimaryColor,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-
-                    if (confirmLogout ?? false) {
-                      await clearToken();
-                      Provider.of<LoginProvider>(context, listen: false)
-                          .passwordController
-                          .clear();
-                      Provider.of<LoginProvider>(context, listen: false)
-                          .usernameController
-                          .clear();
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()),
+                          ),
+                        ],
                       );
-                    }
-                  },
-                ),
+                    },
+                  );
+              
+                  if (confirmLogout ?? false) {
+                    await clearToken();
+                    Provider.of<LoginProvider>(context, listen: false)
+                        .passwordController
+                        .clear();
+                    Provider.of<LoginProvider>(context, listen: false)
+                        .usernameController
+                        .clear();
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                    );
+                  }
+                },
               ),
             ],
           ),
@@ -229,11 +215,8 @@ class ClassLevelView extends StatelessWidget {
         List<ClassroomLists>? classes = provider.classrooms;
 
         if (provider.isLoading) {
-          return const Center(
-            child: CircularProgressIndicator(
-              color: cPrimaryColor,
-            ),
-          );
+          // Use shimmer effect during loading
+          return buildShimmerEffect(context);
         } else if (provider.errorMessage != null) {
           return Center(child: Text('Error: ${provider.errorMessage}'));
         } else if (classes == null || classes.isEmpty) {
@@ -271,6 +254,63 @@ class ClassLevelView extends StatelessWidget {
     );
   }
 
+  Widget buildShimmerEffect(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return GridView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      padding: const EdgeInsets.all(8.0),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: size.width > 600 ? 4 : 3,
+        crossAxisSpacing: size.width * 0.02,
+        mainAxisSpacing: size.width * 0.02,
+        childAspectRatio: size.width > 600 ? 1.4 : 1.2,
+      ),
+      itemCount: 25, // Number of shimmer items
+      itemBuilder: (context, index) {
+        return Shimmer.fromColors(
+          baseColor: Colors.grey.withOpacity(0.5),
+          highlightColor: Colors.white38,
+          child: Card(
+            color: cPrimaryColor,
+            elevation: 4.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: Padding(
+              padding: EdgeInsets.all(size.width * 0.02),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(height: size.height * 0.01),
+                  Container(
+                    height: size.height * 0.05,
+                    width: size.width * 0.2,
+                    decoration: const BoxDecoration(
+                      color: cWhiteColor2,
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                    ),
+                  ),
+                  SizedBox(height: size.height * 0.01),
+                  Container(
+                    width: double.infinity,
+                    height: 10.0,
+                    color: Colors.grey.withOpacity(0.5),
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 10.0,
+                    color: Colors.grey.withOpacity(0.5),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   Widget buildClassCard(BuildContext context, ClassroomLists classroom) {
     final size = MediaQuery.of(context).size;
 
@@ -281,6 +321,7 @@ class ClassLevelView extends StatelessWidget {
           builder: (context) => AdminClassrooms(
             className: classroom.name,
             division: classroom.division,
+            classTeacher: classroom.classTeacher,
             students: classroom.students,
           ),
         ),
@@ -292,18 +333,14 @@ class ClassLevelView extends StatelessWidget {
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: Padding(
-          padding: EdgeInsets.all(
-              size.width * 0.02), // Adjust padding based on screen width
+          padding: EdgeInsets.all(size.width * 0.02), // Adjust padding
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(
-                  height: size.height *
-                      0.01), // Adjust height based on screen height
+              SizedBox(height: size.height * 0.01), // Adjust height
               Container(
-                height:
-                    size.height * 0.05, // Adjust height based on screen height
-                width: size.width * 0.2, // Adjust width based on screen width
+                height: size.height * 0.05, // Adjust height
+                width: size.width * 0.2, // Adjust width
                 decoration: const BoxDecoration(
                   color: cWhiteColor2,
                   borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -318,9 +355,7 @@ class ClassLevelView extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
-                  height: size.height *
-                      0.01), // Adjust height based on screen height
+              SizedBox(height: size.height * 0.01), // Adjust height
               Text(
                 'Students: ${classroom.students.length}',
                 style: const TextStyle(

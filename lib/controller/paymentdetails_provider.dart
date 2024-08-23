@@ -83,4 +83,21 @@ class BusPaymentDetailsProvider extends ChangeNotifier {
       throw Exception('Update failed: $e');
     }
   }
+
+  String formatAmount(dynamic amount) {
+  if (amount == null) return "0";
+  try {
+    double parsedAmount;
+    if (amount is String) {
+      parsedAmount = double.parse(amount);
+    } else if (amount is num) {
+      parsedAmount = amount.toDouble();
+    } else {
+      return "0";
+    }
+    return parsedAmount.toStringAsFixed(0);
+  } catch (e) {
+    return "0";
+  }
+}
 }

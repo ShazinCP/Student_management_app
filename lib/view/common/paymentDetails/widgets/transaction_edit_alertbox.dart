@@ -8,7 +8,6 @@ import 'package:student_management/view/common/paymentDetails/widgets/amountfiel
 class TransactionEditAlertBox extends StatefulWidget {
   final int studentId;
   final String amount;
-  // final String transactionType;
   final int transactionId;
 
 
@@ -16,7 +15,6 @@ class TransactionEditAlertBox extends StatefulWidget {
     super.key,
     required this.studentId,
     required this.amount,
-    // required this.transactionType,
     required this.transactionId,
   });
 
