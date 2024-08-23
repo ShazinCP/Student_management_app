@@ -136,11 +136,12 @@ class BusStudentsScreen extends StatelessWidget {
                       provider.students!.isEmpty) {
                     return const Center(child: Text('No data available'));
                   } else {
-                    final busStudentsList = provider.students!
-                        .where((students) => students.user.name
-                            .toLowerCase()
-                            .contains(provider.searchQuery.toLowerCase()))
-                        .toList();
+                    final busStudentsList = provider.students!.where((student) {
+                      final name = student.user?.name?.toLowerCase() ?? '';
+                      final searchQuery = provider.searchQuery.toLowerCase();
+                      return name.contains(searchQuery);
+                    }).toList();
+
                     return RefreshIndicator(
                       onRefresh: provider.fetchBusStudents,
                       child: ListView.builder(
@@ -155,16 +156,18 @@ class BusStudentsScreen extends StatelessWidget {
                               onTap: () =>
                                   Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => StudentsInfoScreen(
-                                  name: student.user.name,
-                                  admissionNo: student.admissionNo,
-                                  id: student.id,
+                                  name: student.user?.name ?? 'Unknown',
+                                  admissionNo:
+                                      student.admissionNo ?? 'Not Available',
+                                  id: student.id ?? 0,
                                 ),
                               )),
                               child: ListTile(
                                 leading: CircleAvatar(
                                   backgroundColor: cSecondaryColor,
                                   child: Text(
-                                    student.admissionNo,
+                                    student.admissionNo ??
+                                        '0', // Default value if null
                                     style: const TextStyle(
                                       fontSize: 8.5,
                                       fontWeight: FontWeight.bold,
@@ -172,7 +175,8 @@ class BusStudentsScreen extends StatelessWidget {
                                   ),
                                 ),
                                 title: Text(
-                                  student.user.name,
+                                  student.user?.name ??
+                                      'Unknown',
                                   style: const TextStyle(
                                     color: cWhiteColor,
                                   ),

@@ -52,7 +52,7 @@ class StudentsInfoScreen extends StatelessWidget {
             ),
             cHeight10,
             Text(
-              name.capitalize(),
+              ' ${name.capitalize()}',
               style: const TextStyle(color: cWhiteColor),
             ),
           ],
@@ -106,11 +106,12 @@ class StudentsInfoScreen extends StatelessWidget {
                             children: [
                               BusDetailsWidget(
                                 contant: "Bus No",
-                                count: student.bus.busNo.toString(),
+                                count: student.bus?.busNo?.toString() ?? "0",
                               ),
                               BusDetailsWidget(
                                 contant: "Route No",
-                                count: student.route.routeNo.toString(),
+                                count:
+                                    student.route?.routeNo?.toString() ?? "0",
                               ),
                             ],
                           ),
@@ -126,13 +127,14 @@ class StudentsInfoScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                student.busPoint.name.capitalize(),
+                                (student.busPoint?.name ?? 'Unknown')
+                                    .capitalize(),
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 21,
                                 ),
-                              ),
+                              )
                             ],
                           ),
                         ],
@@ -155,45 +157,56 @@ class StudentsInfoScreen extends StatelessWidget {
                         thickness: 2,
                       ),
                     ),
-                    // SizedBox(
-                    //   height: screenHeight * 0.45,
-                    //   width: double.infinity,
-                    //   child: ListView.builder(
-                    //     itemCount: provider.busPoints.length,
-                    //     itemBuilder: (context, index) {
-                    //       return Padding(
-                    //         padding: const EdgeInsets.symmetric(vertical: 5),
-                    //         child: Container(
-                    //           decoration: BoxDecoration(
-                    //             color: cPrimaryColor,
-                    //             borderRadius: BorderRadius.circular(10),
-                    //             boxShadow: [
-                    //               BoxShadow(
-                    //                 color: cBlackColor.withOpacity(0.5),
-                    //                 spreadRadius: 2,
-                    //                 blurRadius: 2,
-                    //                 offset: const Offset(0, 2),
-                    //               ),
-                    //             ],
-                    //           ),
-                              // child: ListTile(
-                              //   title: Center(
-                              //     child: Text(
-                              //       provider.busPoints[index].capitalize(),
-                              //       style: const TextStyle(
-                              //         fontWeight: FontWeight.bold,
-                              //         fontSize: 18,
-                              //         color: cWhiteColor,
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                    //         ),
-                    //       );
-                    //     },
-                    //   ),
-                    // ),
-                    // SizedBox(height: screenHeight * 0.03),
+                    SizedBox(
+                        height: screenHeight * 0.45,
+                        width: double.infinity,
+                        child: provider.busPoints.isEmpty
+                            ? const Center(
+                                child: Text(
+                                  'No bus points found',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: cBlackColor,
+                                  ),
+                                ),
+                              )
+                            : ListView.builder(
+                                itemCount: provider.busPoints.length,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 5),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: cPrimaryColor,
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: cBlackColor.withOpacity(0.5),
+                                            spreadRadius: 2,
+                                            blurRadius: 2,
+                                            offset: const Offset(0, 2),
+                                          ),
+                                        ],
+                                      ),
+                                      child: ListTile(
+                                        title: Center(
+                                          child: Text(
+                                            provider.busPoints[index]
+                                                .capitalize(),
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18,
+                                              color: cWhiteColor,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              )),
+                    SizedBox(height: screenHeight * 0.03),
                     Center(
                       child: SizedBox(
                         width: screenWidth * 0.5,
@@ -204,7 +217,7 @@ class StudentsInfoScreen extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => PaymentDetailsScreen(
-                                  studentId: student.student.id,
+                                  studentId: student.student?.id ?? 0,
                                   admissionNo: admissionNo,
                                   name: name,
                                 ),

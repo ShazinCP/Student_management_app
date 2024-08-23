@@ -17,12 +17,12 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      id: json['id'],
-      name: json['name'],
-      username: json['username'],
-      gender: json['gender'],
-      phone: json['phone'],
-      dateOfBirth: json['date_of_birth'],
+      id: json['id'] ?? 0, // Default value for id if null
+      name: json['name'] ?? '',
+      username: json['username'] ?? '',
+      gender: json['gender'] ?? '',
+      phone: json['phone'] ?? '',
+      dateOfBirth: json['date_of_birth'] ?? '',
     );
   }
 
@@ -65,16 +65,16 @@ class Student {
 
   factory Student.fromJson(Map<String, dynamic> json) {
     return Student(
-      id: json['id'],
-      admissionNo: json['admission_no'],
+      id: json['id'] ?? 0, // Default value for id if null
+      admissionNo: json['admission_no'] ?? '',
       photo: json['photo'],
-      guardianName: json['guardian_name'],
-      pincode: json['pincode'],
-      houseName: json['house_name'],
-      postOffice: json['post_office'],
-      place: json['place'],
-      classRoom: json['classRoom'],
-      user: User.fromJson(json['user']),
+      guardianName: json['guardian_name'] ?? '',
+      pincode: json['pincode'] ?? '',
+      houseName: json['house_name'] ?? '',
+      postOffice: json['post_office'] ?? '',
+      place: json['place'] ?? '',
+      classRoom: json['classRoom'] ?? 0, // Default value for classRoom if null
+      user: User.fromJson(json['user'] ?? {}), // Handle null for user
     );
   }
 
@@ -99,7 +99,7 @@ class ClassroomLists {
   final String name;
   final String division;
   final int capacity;
-  // final dynamic classTeacher;
+  final dynamic classTeacher;
   final List<Student> students;
 
   ClassroomLists({
@@ -107,20 +107,21 @@ class ClassroomLists {
     required this.name,
     required this.division,
     required this.capacity,
-    // this.classTeacher,
+    this.classTeacher,
     required this.students,
   });
 
   factory ClassroomLists.fromJson(Map<String, dynamic> json) {
     return ClassroomLists(
-      id: json['id'],
-      name: json['name'],
-      division: json['division'],
-      capacity: json['capacity'],
-      // classTeacher: json['classTeacher']['teacher'],
-      students: (json['students'] as List)
-          .map((student) => Student.fromJson(student))
-          .toList(),
+      id: json['id'] ?? 0, // Default value for id if null
+      name: json['name'] ?? "",
+      division: json['division'] ?? "",
+      capacity: json['capacity'] ?? 0, // Default value for capacity if null
+      classTeacher: json['classTeacher']?['teacher']  ?? '', // Handle null for classTeacher
+      students: (json['students'] as List<dynamic>?)
+              ?.map((student) => Student.fromJson(student))
+              .toList() ??
+          [], // Handle null for students list
     );
   }
 
@@ -130,7 +131,7 @@ class ClassroomLists {
       'name': name,
       'division': division,
       'capacity': capacity,
-      // 'classTeacher': {'teacher': classTeacher},
+      'classTeacher': {'teacher': classTeacher},
       'students': students.map((student) => student.toJson()).toList(),
     };
   }

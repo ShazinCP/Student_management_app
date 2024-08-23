@@ -11,10 +11,13 @@ class StudentInfoProvider with ChangeNotifier {
   bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;
 
-  // List<String> get busPoints {
-  //   return _studentInfo?.route.busPoints.map((point) => point.name).toList() ??
-  //       [];
-  // }
+List<String> get busPoints {
+  return _studentInfo?.route?.busPoints
+          ?.map((point) => point.name ?? 'Not found')
+          .toList() ??
+      [];
+}
+
 
   Future<void> fetchStudentInfo(int id) async {
     _isLoading = true;

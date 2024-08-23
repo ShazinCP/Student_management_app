@@ -33,7 +33,7 @@ class TeacherHomeScreen extends StatelessWidget {
         ),
       ),
       drawer: Drawer(
-        backgroundColor: cWhiteColor,
+        backgroundColor: cSecondaryColor,
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
