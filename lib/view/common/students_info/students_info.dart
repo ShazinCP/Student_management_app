@@ -33,28 +33,46 @@ class StudentsInfoScreen extends StatelessWidget {
         backgroundColor: cPrimaryColor,
         // automaticallyImplyLeading: false,
         iconTheme: const IconThemeData(color: cWhiteColor),
-        title: Row(
+        title: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(5),
-              child: CircleAvatar(
-                radius: 18,
-                backgroundColor: cSecondaryColor,
-                child: Text(
-                  admissionNo,
-                  style: TextStyle(
-                    fontSize: 8.5,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey[700],
-                  ),
+            Row(
+              children: [
+                // Padding(
+                //   padding: const EdgeInsets.all(5),
+                //   child: CircleAvatar(
+                //     radius: 18,
+                //     backgroundColor: cSecondaryColor,
+                //     child: Text(
+                //       admissionNo,
+                //       style: TextStyle(
+                //         fontSize: 8.5,
+                //         fontWeight: FontWeight.bold,
+                //         color: Colors.grey[700],
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                // cHeight10,
+                Text(
+                  ' ${name.capitalize()}',
+                  style: const TextStyle(color: cWhiteColor),
                 ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 7),
+              child: Row(
+                children: [
+                  Text(
+                    admissionNo,
+                    style: const TextStyle(
+                      fontSize: 11,
+                      color: Color.fromARGB(255, 230, 230, 230),
+                    ),
+                  )
+                ],
               ),
-            ),
-            cHeight10,
-            Text(
-              ' ${name.capitalize()}',
-              style: const TextStyle(color: cWhiteColor),
-            ),
+            )
           ],
         ),
       ),
@@ -206,7 +224,7 @@ class StudentsInfoScreen extends StatelessWidget {
                                   );
                                 },
                               )),
-                    SizedBox(height: screenHeight * 0.03),
+                    // SizedBox(height: screenHeight * 0.01),
                     Center(
                       child: SizedBox(
                         width: screenWidth * 0.5,

@@ -30,12 +30,12 @@ class AdminClassrooms extends StatelessWidget {
       backgroundColor: cSecondaryColor,
       body: Column(
         children: [
-          cHeight10,
+          cHeight40,
           Stack(
             children: [
               Center(
                 child: Container(
-                  height: 120,
+                  height: 140,
                   width: 360,
                   decoration: const BoxDecoration(
                     boxShadow: [
@@ -133,7 +133,7 @@ class AdminClassrooms extends StatelessWidget {
               ),
             ],
           ),
-          cHeight15,
+          cHeight10,
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
             child: Divider(
@@ -150,7 +150,7 @@ class AdminClassrooms extends StatelessWidget {
                   style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
-                      color: cBlackColor),
+                      color: Color.fromARGB(255, 100, 100, 100)),
                 ),
                 Text(
                   classTeacher.isNotEmpty
@@ -186,7 +186,7 @@ class AdminClassrooms extends StatelessWidget {
                       .toLowerCase()
                       .contains(provider.adminSearchQuery.toLowerCase()))
                   .toList();
-
+      
               if (classStudentsList.isEmpty) {
                 return const Center(child: Text("No student found"));
               }
@@ -196,7 +196,7 @@ class AdminClassrooms extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(
-                        vertical: 4,
+                        vertical: 3,
                         horizontal: 16,
                       ),
                       child: GestureDetector(
@@ -216,23 +216,32 @@ class AdminClassrooms extends StatelessWidget {
                         child: Card(
                           color: cPrimaryColor,
                           child: ListTile(
-                            leading: CircleAvatar(
-                              backgroundColor: cSecondaryColor,
-                              child: Text(
-                                classStudentsList[index].admissionNo,
-                                style: const TextStyle(
-                                  fontSize: 8.5,
-                                  color: cBlackColor,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
+                            // leading: CircleAvatar(
+                            //   backgroundColor: cSecondaryColor,
+                            //   child: Text(
+                            //     classStudentsList[index].admissionNo,
+                            //     style: const TextStyle(
+                            //       fontSize: 8.5,
+                            //       color: cBlackColor,
+                            //       fontWeight: FontWeight.bold,
+                            //     ),
+                            //   ),
+                            // ),
                             title: Text(
                               classStudentsList[index].user.name.capitalize(),
                               style: const TextStyle(
                                 color: cWhiteColor,
+                                fontWeight: FontWeight.bold,
                                 fontSize: 16,
                               ),
+                            ),
+                            subtitle: Text(
+                              classStudentsList[index].admissionNo,
+                              style: const TextStyle(
+                                fontSize: 11,
+                                color: Colors.white60,
+                                fontWeight: FontWeight.bold,
+                              ), 
                             ),
                           ),
                         ),

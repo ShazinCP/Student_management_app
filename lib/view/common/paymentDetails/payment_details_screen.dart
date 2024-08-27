@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:student_management/constants/sizedboxes.dart';
 import 'package:student_management/controller/paymentdetails_provider.dart';
 import 'package:student_management/helper/colors.dart';
 import 'package:provider/provider.dart';
@@ -47,28 +46,46 @@ class _PaymentDetailsScreenState extends State<PaymentDetailsScreen> {
         // automaticallyImplyLeading: false,
         iconTheme: const IconThemeData(color: cWhiteColor),
         backgroundColor: cPrimaryColor,
-        title: Row(
+        title: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(5),
-              child: CircleAvatar(
-                radius: 18,
-                backgroundColor: cSecondaryColor,
-                child: Text(
-                  widget.admissionNo,
-                  style: TextStyle(
-                    fontSize: 8.5,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey[700],
-                  ),
+            Row(
+              children: [
+                // Padding(
+                //   padding: const EdgeInsets.all(5),
+                //   child: CircleAvatar(
+                //     radius: 18,
+                //     backgroundColor: cSecondaryColor,
+                //     child: Text(
+                //       widget.admissionNo,
+                //       style: TextStyle(
+                //         fontSize: 8.5,
+                //         fontWeight: FontWeight.bold,
+                //         color: Colors.grey[700],
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                // cHeight10,
+                Text(
+                  ' ${widget.name.capitalize()}',
+                  style: const TextStyle(color: cSecondaryColor),
                 ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 7),
+              child: Row(
+                children: [
+                  Text(
+                    widget.admissionNo,
+                    style: const TextStyle(
+                      fontSize: 11,
+                      color: Color.fromARGB(255, 230, 230, 230),
+                    ),
+                  )
+                ],
               ),
-            ),
-            cHeight10,
-            Text(
-              ' ${widget.name.capitalize()}',
-              style: const TextStyle(color: cSecondaryColor),
-            ),
+            )
           ],
         ),
       ),
@@ -86,7 +103,7 @@ class _PaymentDetailsScreenState extends State<PaymentDetailsScreen> {
                 onRefresh: () => provider.fetchBusPayments(widget.studentId),
                 child: Column(
                   children: [
-                    cHeight10,
+                    // cHeight10,
                     SizedBox(
                         height: screenHeight * .30,
                         width: screenWidth,
@@ -242,7 +259,7 @@ class _PaymentDetailsScreenState extends State<PaymentDetailsScreen> {
                                         style: const TextStyle(
                                           fontWeight: FontWeight.w600,
                                           fontSize: 13,
-                                          color: cWhiteColor,
+                                          color: Color.fromARGB(255, 212, 212, 212),
                                         ),
                                       ),
                                       // trailing: Container(

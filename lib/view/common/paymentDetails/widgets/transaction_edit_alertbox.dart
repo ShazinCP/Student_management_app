@@ -10,7 +10,6 @@ class TransactionEditAlertBox extends StatefulWidget {
   final String amount;
   final int transactionId;
 
-
   const TransactionEditAlertBox({
     super.key,
     required this.studentId,
@@ -26,12 +25,9 @@ class TransactionEditAlertBox extends StatefulWidget {
 class _TransactionEditAlertBoxState extends State<TransactionEditAlertBox> {
   @override
   void initState() {
-
     final buspaymentPro =
         Provider.of<BusPaymentDetailsProvider>(context, listen: false);
     buspaymentPro.amountController.text = widget.amount;
-    // buspaymentPro.selectedItem = widget.transactionType;
-
     super.initState();
   }
 
@@ -50,11 +46,7 @@ class _TransactionEditAlertBoxState extends State<TransactionEditAlertBox> {
                 children: [
                   cHeight25,
                   amount(),
-                  // cHeight20,
-                  // paymentType(),
                   cHeight20,
-                  // dateTime(),
-                  cHeight27,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -86,9 +78,24 @@ class _TransactionEditAlertBoxState extends State<TransactionEditAlertBox> {
                           if (formkey.currentState!.validate()) {
                             await provider.editBusTransaction(
                                 widget.studentId, widget.transactionId);
+
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Transaction updated successfully!'),
+                                backgroundColor: Colors.green,
+                              ),
+                            );
+
                             Navigator.pop(context);
                             provider.amountController.clear();
                             provider.selectedItem = null;
+                           } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Failed to update transaction.'),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
                           }
                         },
                         child: Container(
