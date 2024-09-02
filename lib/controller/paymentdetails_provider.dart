@@ -20,11 +20,11 @@ class BusPaymentDetailsProvider extends ChangeNotifier {
   BusPaymentServices busPaymentServices = BusPaymentServices();
 
   //-------------------------feaching bus payments-----------------
-  BusPaymentsModel? _BusPayments;
+  BusPaymentsModel? _busPayments;
   bool _isLoading = true;
   String? _errorMessage;
 
-  BusPaymentsModel? get BusPayments => _BusPayments;
+  BusPaymentsModel? get busPayments => _busPayments;
   bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;
 
@@ -32,7 +32,7 @@ class BusPaymentDetailsProvider extends ChangeNotifier {
     _isLoading = true;
     _errorMessage = null;
     try {
-      _BusPayments = await busPaymentServices.fetchBusPayments(studentId);
+      _busPayments = await busPaymentServices.fetchBusPayments(studentId);
     } catch (e) {
       _errorMessage = e.toString();
     } finally {
@@ -85,19 +85,19 @@ class BusPaymentDetailsProvider extends ChangeNotifier {
   }
 
   String formatAmount(dynamic amount) {
-  if (amount == null) return "0";
-  try {
-    double parsedAmount;
-    if (amount is String) {
-      parsedAmount = double.parse(amount);
-    } else if (amount is num) {
-      parsedAmount = amount.toDouble();
-    } else {
+    if (amount == null) return "0";
+    try {
+      double parsedAmount;
+      if (amount is String) {
+        parsedAmount = double.parse(amount);
+      } else if (amount is num) {
+        parsedAmount = amount.toDouble();
+      } else {
+        return "0";
+      }
+      return parsedAmount.toStringAsFixed(0);
+    } catch (e) {
       return "0";
     }
-    return parsedAmount.toStringAsFixed(0);
-  } catch (e) {
-    return "0";
   }
-}
 }

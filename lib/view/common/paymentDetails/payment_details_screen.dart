@@ -1,13 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:student_management/constants/sizedboxes.dart';
 import 'package:student_management/controller/paymentdetails_provider.dart';
 import 'package:student_management/helper/colors.dart';
 import 'package:provider/provider.dart';
-import 'package:student_management/view/common/paymentDetails/widgets/alertbox.dart';
+import 'package:student_management/view/common/paymentDetails/widgets/add_alertbox.dart';
 import 'package:student_management/view/common/paymentDetails/widgets/paymentscreen_shimmer.dart';
 import 'package:student_management/view/common/paymentDetails/widgets/transaction_count.dart';
-import 'package:student_management/view/common/paymentDetails/widgets/transaction_edit_alertbox.dart';
+import 'package:student_management/view/common/paymentDetails/widgets/edit_alertbox.dart';
 import 'package:student_management/widgets/uppercase.dart';
 
 class PaymentDetailsScreen extends StatefulWidget {
@@ -47,28 +46,46 @@ class _PaymentDetailsScreenState extends State<PaymentDetailsScreen> {
         // automaticallyImplyLeading: false,
         iconTheme: const IconThemeData(color: cWhiteColor),
         backgroundColor: cPrimaryColor,
-        title: Row(
+        title: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(5),
-              child: CircleAvatar(
-                radius: 18,
-                backgroundColor: cSecondaryColor,
-                child: Text(
-                  widget.admissionNo,
-                  style: TextStyle(
-                    fontSize: 8.5,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey[700],
-                  ),
+            Row(
+              children: [
+                // Padding(
+                //   padding: const EdgeInsets.all(5),
+                //   child: CircleAvatar(
+                //     radius: 18,
+                //     backgroundColor: cSecondaryColor,
+                //     child: Text(
+                //       widget.admissionNo,
+                //       style: TextStyle(
+                //         fontSize: 8.5,
+                //         fontWeight: FontWeight.bold,
+                //         color: Colors.grey[700],
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                // cHeight10,
+                Text(
+                  ' ${widget.name.capitalize()}',
+                  style: const TextStyle(color: cSecondaryColor),
                 ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 7),
+              child: Row(
+                children: [
+                  Text(
+                    widget.admissionNo,
+                    style: const TextStyle(
+                      fontSize: 11,
+                      color: Color.fromARGB(255, 230, 230, 230),
+                    ),
+                  )
+                ],
               ),
-            ),
-            cHeight10,
-            Text(
-              ' ${widget.name.capitalize()}',
-              style: const TextStyle(color: cSecondaryColor),
-            ),
+            )
           ],
         ),
       ),
@@ -79,26 +96,26 @@ class _PaymentDetailsScreenState extends State<PaymentDetailsScreen> {
               return paymentShimmerEffect(screenHeight, screenWidth);
             } else if (provider.errorMessage != null) {
               return Center(child: Text(provider.errorMessage!));
-            } else if (provider.BusPayments != null) {
+            } else if (provider.busPayments != null) {
               final transactions =
-                  provider.BusPayments?.transactions?.reversed.toList() ?? [];
+                  provider.busPayments?.transactions?.reversed.toList() ?? [];
               return RefreshIndicator(
                 onRefresh: () => provider.fetchBusPayments(widget.studentId),
                 child: Column(
                   children: [
-                    cHeight10,
+                    // cHeight10,
                     SizedBox(
                         height: screenHeight * .30,
                         width: screenWidth,
                         child: PaymentCounts(
-                          balanceAmount: provider.BusPayments?.balanceAmount
+                          balanceAmount: provider.busPayments?.balanceAmount
                                   ?.toStringAsFixed(0) ??
                               "0",
-                          paidAmount: provider.BusPayments?.paidAmount
+                          paidAmount: provider.busPayments?.paidAmount
                                   ?.toStringAsFixed(0) ??
                               "0",
                           totalAmount: provider
-                                  .BusPayments?.busService?.annualFees
+                                  .busPayments?.busService?.annualFees
                                   ?.toStringAsFixed(0) ??
                               "0",
                         )),
@@ -121,7 +138,7 @@ class _PaymentDetailsScreenState extends State<PaymentDetailsScreen> {
                       child: Container(
                         color: cWhiteColor24,
                         height: 300,
-                        child: (provider.BusPayments?.transactions?.isEmpty ??
+                        child: (provider.busPayments?.transactions?.isEmpty ??
                                 true)
                             ? const Center(
                                 child: Text(
@@ -242,7 +259,7 @@ class _PaymentDetailsScreenState extends State<PaymentDetailsScreen> {
                                         style: const TextStyle(
                                           fontWeight: FontWeight.w600,
                                           fontSize: 13,
-                                          color: cWhiteColor,
+                                          color: Color.fromARGB(255, 212, 212, 212),
                                         ),
                                       ),
                                       // trailing: Container(
@@ -271,7 +288,7 @@ class _PaymentDetailsScreenState extends State<PaymentDetailsScreen> {
                                                       studentId:
                                                           widget.studentId,
                                                       amount:
-                                                          '${transaction.amount}',
+                                                          provider.formatAmount(transaction.amount),
                                                       transactionId:
                                                           transaction.id ?? 0,
                                                     );
@@ -362,7 +379,7 @@ class _PaymentDetailsScreenState extends State<PaymentDetailsScreen> {
                                   );
                                 },
                                 itemCount: provider
-                                        .BusPayments?.transactions?.length ??
+                                        .busPayments?.transactions?.length ??
                                     0,
                               ),
                       ),

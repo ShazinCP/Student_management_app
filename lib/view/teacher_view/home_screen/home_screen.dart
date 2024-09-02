@@ -63,7 +63,7 @@ class TeacherHomeScreen extends StatelessWidget {
               leading: const Icon(Icons.account_circle),
               onTap: () {
                 // Handle profile navigation
-                Navigator.pushReplacement(
+                Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const ProfileScreen(),

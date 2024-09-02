@@ -7,28 +7,35 @@ import 'package:student_management/view/common/paymentDetails/widgets/amountfiel
 
 class AlertBoxWidget extends StatelessWidget {
   final int studentId;
-  
-   AlertBoxWidget({super.key, required this.studentId, });
-  final formkey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
+
+  AlertBoxWidget({
+    super.key,
+    required this.studentId,
+  });
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      title: Consumer<BusPaymentDetailsProvider>(
+      title: const Text(
+        'Add Payment',
+        style: TextStyle(
+          fontFamily: 'f',
+          fontWeight: FontWeight.w600,
+          fontSize: 20,
+        ),
+      ),
+      content: Consumer<BusPaymentDetailsProvider>(
         builder: (context, provider, child) {
           return SingleChildScrollView(
             child: Form(
-              key: formkey,
+              key: formKey,
               child: Column(
                 children: [
                   cHeight25,
                   amount(),
-                  // cHeight20,
-                  // paymentType(),
                   cHeight20,
-                  // dateTime(),
-                  cHeight27,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -56,12 +63,41 @@ class AlertBoxWidget extends StatelessWidget {
                         ),
                       ),
                       GestureDetector(
-                         onTap: () async {
-                             if (formkey.currentState!.validate()) {
+                        onTap: () async {
+                          if (formKey.currentState!.validate()) {
+                            // Validation: Check if the paid amount matches the total amount
+                            final totalAmount = provider.busPayments?.busService?.annualFees ?? 0;
+                            final paidAmount = provider.busPayments?.paidAmount ?? 0;
+
+                            if (paidAmount >= totalAmount) {
+                              // Show a message to the user
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('The total amount has already been paid.'),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                              return; // Do not proceed further
+                            }
+
+                            // Proceed with posting the payment
                             await provider.postBusPayment(studentId);
                             Navigator.pop(context);
                             provider.amountController.clear();
                             provider.selectedItem = null;
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Transaction added successfully.'),
+                                backgroundColor: Colors.green,
+                              ),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Failed to add transaction.'),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
                           }
                         },
                         child: Container(

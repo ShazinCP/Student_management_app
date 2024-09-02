@@ -26,6 +26,16 @@ Padding amount() {
             },
             keyboardType: TextInputType.number,
               controller: provider.amountController,
+              onChanged: (value) {
+              // Check if the value ends with .00 and remove it
+              if (value.endsWith('.00')) {
+                provider.amountController.text = value.substring(0, value.length - 3);
+                // Move the cursor to the end of the text
+                provider.amountController.selection = TextSelection.fromPosition(
+                  TextPosition(offset: provider.amountController.text.length),
+                );
+              }
+            },
             decoration: InputDecoration(
               contentPadding:
                   const EdgeInsets.symmetric(horizontal: 15, vertical: 15),

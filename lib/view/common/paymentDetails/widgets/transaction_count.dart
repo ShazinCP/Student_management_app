@@ -22,7 +22,7 @@ class PaymentCounts extends StatelessWidget {
         Center(
           child: Container(
             height: 180,
-            width: 350,
+            width: 360,
             decoration: const BoxDecoration(
               boxShadow: [
                 BoxShadow(

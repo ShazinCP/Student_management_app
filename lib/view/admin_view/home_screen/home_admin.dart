@@ -299,7 +299,7 @@ class ClassLevelView extends StatelessWidget {
                   ),
                   Container(
                     width: double.infinity,
-                    height: 10.0,
+                    height: 8,
                     color: Colors.grey.withOpacity(0.5),
                   ),
                 ],
@@ -359,7 +359,7 @@ class ClassLevelView extends StatelessWidget {
               Text(
                 'Students: ${classroom.students.length}',
                 style: const TextStyle(
-                  fontSize: 9,
+                  fontSize: 6.5,
                   color: cWhiteColor,
                 ),
               ),
@@ -367,7 +367,7 @@ class ClassLevelView extends StatelessWidget {
                 'Total seats: ${classroom.capacity}',
                 style: const TextStyle(
                   fontSize: 6.5,
-                  color: cGreyColor2,
+                  color: cBlackColor,
                 ),
               ),
             ],
