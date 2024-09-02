@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:student_management/controller/paymentdetails_provider.dart';
 import 'package:student_management/helper/colors.dart';
 import 'package:provider/provider.dart';
-import 'package:student_management/view/common/paymentDetails/widgets/alertbox.dart';
+import 'package:student_management/view/common/paymentDetails/widgets/add_alertbox.dart';
 import 'package:student_management/view/common/paymentDetails/widgets/paymentscreen_shimmer.dart';
 import 'package:student_management/view/common/paymentDetails/widgets/transaction_count.dart';
-import 'package:student_management/view/common/paymentDetails/widgets/transaction_edit_alertbox.dart';
+import 'package:student_management/view/common/paymentDetails/widgets/edit_alertbox.dart';
 import 'package:student_management/widgets/uppercase.dart';
 
 class PaymentDetailsScreen extends StatefulWidget {
@@ -96,9 +96,9 @@ class _PaymentDetailsScreenState extends State<PaymentDetailsScreen> {
               return paymentShimmerEffect(screenHeight, screenWidth);
             } else if (provider.errorMessage != null) {
               return Center(child: Text(provider.errorMessage!));
-            } else if (provider.BusPayments != null) {
+            } else if (provider.busPayments != null) {
               final transactions =
-                  provider.BusPayments?.transactions?.reversed.toList() ?? [];
+                  provider.busPayments?.transactions?.reversed.toList() ?? [];
               return RefreshIndicator(
                 onRefresh: () => provider.fetchBusPayments(widget.studentId),
                 child: Column(
@@ -108,14 +108,14 @@ class _PaymentDetailsScreenState extends State<PaymentDetailsScreen> {
                         height: screenHeight * .30,
                         width: screenWidth,
                         child: PaymentCounts(
-                          balanceAmount: provider.BusPayments?.balanceAmount
+                          balanceAmount: provider.busPayments?.balanceAmount
                                   ?.toStringAsFixed(0) ??
                               "0",
-                          paidAmount: provider.BusPayments?.paidAmount
+                          paidAmount: provider.busPayments?.paidAmount
                                   ?.toStringAsFixed(0) ??
                               "0",
                           totalAmount: provider
-                                  .BusPayments?.busService?.annualFees
+                                  .busPayments?.busService?.annualFees
                                   ?.toStringAsFixed(0) ??
                               "0",
                         )),
@@ -138,7 +138,7 @@ class _PaymentDetailsScreenState extends State<PaymentDetailsScreen> {
                       child: Container(
                         color: cWhiteColor24,
                         height: 300,
-                        child: (provider.BusPayments?.transactions?.isEmpty ??
+                        child: (provider.busPayments?.transactions?.isEmpty ??
                                 true)
                             ? const Center(
                                 child: Text(
@@ -288,7 +288,7 @@ class _PaymentDetailsScreenState extends State<PaymentDetailsScreen> {
                                                       studentId:
                                                           widget.studentId,
                                                       amount:
-                                                          '${transaction.amount}',
+                                                          provider.formatAmount(transaction.amount),
                                                       transactionId:
                                                           transaction.id ?? 0,
                                                     );
@@ -379,7 +379,7 @@ class _PaymentDetailsScreenState extends State<PaymentDetailsScreen> {
                                   );
                                 },
                                 itemCount: provider
-                                        .BusPayments?.transactions?.length ??
+                                        .busPayments?.transactions?.length ??
                                     0,
                               ),
                       ),

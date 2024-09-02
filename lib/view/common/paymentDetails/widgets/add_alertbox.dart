@@ -5,43 +5,32 @@ import 'package:student_management/controller/paymentdetails_provider.dart';
 import 'package:student_management/helper/colors.dart';
 import 'package:student_management/view/common/paymentDetails/widgets/amountfield.dart';
 
-class TransactionEditAlertBox extends StatefulWidget {
+class AlertBoxWidget extends StatelessWidget {
   final int studentId;
-  final String amount;
-  final int transactionId;
+  final formKey = GlobalKey<FormState>();
 
-  const TransactionEditAlertBox({
+  AlertBoxWidget({
     super.key,
     required this.studentId,
-    required this.amount,
-    required this.transactionId,
   });
-
-  @override
-  State<TransactionEditAlertBox> createState() =>
-      _TransactionEditAlertBoxState();
-}
-
-class _TransactionEditAlertBoxState extends State<TransactionEditAlertBox> {
-  @override
-  void initState() {
-    final buspaymentPro =
-        Provider.of<BusPaymentDetailsProvider>(context, listen: false);
-    buspaymentPro.amountController.text = widget.amount;
-    super.initState();
-  }
-
-  final formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      title: Consumer<BusPaymentDetailsProvider>(
+      title: const Text(
+        'Add Payment',
+        style: TextStyle(
+          fontFamily: 'f',
+          fontWeight: FontWeight.w600,
+          fontSize: 20,
+        ),
+      ),
+      content: Consumer<BusPaymentDetailsProvider>(
         builder: (context, provider, child) {
           return SingleChildScrollView(
             child: Form(
-              key: formkey,
+              key: formKey,
               child: Column(
                 children: [
                   cHeight25,
@@ -75,24 +64,37 @@ class _TransactionEditAlertBoxState extends State<TransactionEditAlertBox> {
                       ),
                       GestureDetector(
                         onTap: () async {
-                          if (formkey.currentState!.validate()) {
-                            await provider.editBusTransaction(
-                                widget.studentId, widget.transactionId);
+                          if (formKey.currentState!.validate()) {
+                            // Validation: Check if the paid amount matches the total amount
+                            final totalAmount = provider.busPayments?.busService?.annualFees ?? 0;
+                            final paidAmount = provider.busPayments?.paidAmount ?? 0;
 
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Transaction updated successfully!'),
-                                backgroundColor: Colors.green,
-                              ),
-                            );
+                            if (paidAmount >= totalAmount) {
+                              // Show a message to the user
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('The total amount has already been paid.'),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                              return; // Do not proceed further
+                            }
 
+                            // Proceed with posting the payment
+                            await provider.postBusPayment(studentId);
                             Navigator.pop(context);
                             provider.amountController.clear();
                             provider.selectedItem = null;
-                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                content: Text('Failed to update transaction.'),
+                                content: Text('Transaction added successfully.'),
+                                backgroundColor: Colors.green,
+                              ),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Failed to add transaction.'),
                                 backgroundColor: Colors.red,
                               ),
                             );
